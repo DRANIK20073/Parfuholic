@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.9.34728.123
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Parfuholic", "Parfuholic\Parfuholic.csproj", "{6754BD73-5847-4AB0-A26F-C9524A004D29}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{6754BD73-5847-4AB0-A26F-C9524A004D29}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6754BD73-5847-4AB0-A26F-C9524A004D29}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6754BD73-5847-4AB0-A26F-C9524A004D29}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6754BD73-5847-4AB0-A26F-C9524A004D29}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {E27A145F-9E87-4850-9BF4-5B3FD573F967}
+	EndGlobalSection
+EndGlobal

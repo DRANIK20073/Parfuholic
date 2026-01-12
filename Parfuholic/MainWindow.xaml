@@ -1,13 +1,65 @@
 ﻿<Window x:Class="Parfuholic.MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:Parfuholic"
-        mc:Ignorable="d"
-        Background="Black"
-        Title="MainWindow" Height="450" Width="800">
+        Title="Perfuholic" Height="1080" Width="1920" Background="White">
     <Grid>
-        
+        <!-- Шапка -->
+        <DockPanel LastChildFill="False" Background="#FFBFA5">
+            <StackPanel Orientation="Horizontal" DockPanel.Dock="Top" Height="80" VerticalAlignment="Center">
+                <TextBlock Text="Perfume Store" FontSize="28" FontWeight="Bold" Margin="20,0"/>
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
+                    <Button Content="Главная" Margin="10"/>
+                    <Button Content="Каталог" Margin="10"/>
+                    <Button Content="Акции" Margin="10"/>
+                    <Button Content="Контакты" Margin="10"/>
+                </StackPanel>
+            </StackPanel>
+        </DockPanel>
+
+        <!-- Баннер -->
+        <Border Background="#FFE6E1" Height="250" Margin="0,80,0,0">
+            <TextBlock Text="Весенняя коллекция ароматов 2026!" 
+                       FontSize="36" FontWeight="Bold" 
+                       HorizontalAlignment="Center" VerticalAlignment="Center"/>
+        </Border>
+
+        <!-- Популярные товары -->
+        <StackPanel Margin="20,350,20,100">
+            <TextBlock Text="Популярные ароматы" FontSize="24" FontWeight="Bold" Margin="0,0,0,20"/>
+            <WrapPanel ItemWidth="200" ItemHeight="300" HorizontalAlignment="Center">
+                <!-- Пример товара -->
+                <Border BorderBrush="Gray" BorderThickness="1" Margin="10">
+                    <StackPanel>
+                        <Image Source="source/parfum1.png" Height="200"/>
+                        <TextBlock Text="Chanel No.5" FontWeight="Bold" Margin="5,5,5,0"/>
+                        <TextBlock Text="$120" Foreground="DarkGreen" Margin="5,0,5,5"/>
+                        <Button Content="Купить" Background="#FFBFA5" Margin="5"/>
+                    </StackPanel>
+                </Border>
+
+                <Border BorderBrush="Gray" BorderThickness="1" Margin="10">
+                    <StackPanel>
+                        <Image Source="source/parfum2.png" Height="200"/>
+                        <TextBlock Text="Dior Sauvage" FontWeight="Bold" Margin="5,5,5,0"/>
+                        <TextBlock Text="$95" Foreground="DarkGreen" Margin="5,0,5,5"/>
+                        <Button Content="Купить" Background="#FFBFA5" Margin="5"/>
+                    </StackPanel>
+                </Border>
+
+                <Border BorderBrush="Gray" BorderThickness="1" Margin="10">
+                    <StackPanel>
+                        <Image Source="source/parfum3.png" Height="200"/>
+                        <TextBlock Text="Yves Saint Laurent" FontWeight="Bold" Margin="5,5,5,0"/>
+                        <TextBlock Text="$110" Foreground="DarkGreen" Margin="5,0,5,5"/>
+                        <Button Content="Купить" Background="#FFBFA5" Margin="5"/>
+                    </StackPanel>
+                </Border>
+            </WrapPanel>
+        </StackPanel>
+
+        <!-- Футер -->
+        <DockPanel DockPanel.Dock="Bottom" Height="80" Background="#FFE6E1" VerticalAlignment="Bottom">
+            <TextBlock Text="© 2026 Perfuholic. Все права защищены." VerticalAlignment="Center" HorizontalAlignment="Center"/>
+        </DockPanel>
     </Grid>
 </Window>

@@ -12,3 +12,7 @@ D:\Others\Programming\Visual studio 2022\Parfuholic\Parfuholic\obj\Debug\Parfuho
 D:\Others\Programming\Visual studio 2022\Parfuholic\Parfuholic\obj\Debug\Parfuholic.csproj.CoreCompileInputs.cache
 D:\Others\Programming\Visual studio 2022\Parfuholic\Parfuholic\obj\Debug\Parfuholic.exe
 D:\Others\Programming\Visual studio 2022\Parfuholic\Parfuholic\obj\Debug\Parfuholic.pdb
+D:\Others\Programming\Visual studio 2022\Parfuholic\Parfuholic\obj\Debug\LoginPage.baml
+D:\Others\Programming\Visual studio 2022\Parfuholic\Parfuholic\obj\Debug\RegisterPage.baml
+D:\Others\Programming\Visual studio 2022\Parfuholic\Parfuholic\obj\Debug\LoginPage.g.cs
+D:\Others\Programming\Visual studio 2022\Parfuholic\Parfuholic\obj\Debug\RegisterPage.g.cs

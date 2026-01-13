@@ -47,11 +47,6 @@
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
         
-        <!--Страница входа-->
-        <Frame x:Name="LoginPage" NavigationUIVisibility="Hidden" 
-            Grid.Row="0" Grid.Column="0"
-            Grid.ColumnSpan="3" Grid.RowSpan="3"/>
-
         <!-- HEADER -->
         <Border Background="White" Padding="30">
             <Grid>
@@ -230,6 +225,13 @@
 
             </WrapPanel>
         </ScrollViewer>
+
+        <Frame x:Name="OverlayFrame"
+           Grid.Row="0"
+           Grid.RowSpan="3"
+           NavigationUIVisibility="Hidden"
+           Background="#80000000"
+           Visibility="Collapsed"/>
 
     </Grid>
 </Window>

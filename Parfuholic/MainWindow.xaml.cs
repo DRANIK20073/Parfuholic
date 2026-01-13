@@ -20,7 +20,8 @@ namespace Parfuholic
         private void LoginButton_Click(object sender, RoutedEventArgs e)
         {
             // Навигация на страницу входа
-            LoginPage.Navigate(new LoginPage());
+            OverlayFrame.Navigate(new LoginPage());
+            OverlayFrame.Visibility = Visibility.Visible;
         }
     }
 }

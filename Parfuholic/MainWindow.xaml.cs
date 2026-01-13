@@ -1,6 +1,6 @@
 ﻿using System.Windows;
 using System.Windows.Controls;
-using WpfApp;
+using System.Windows.Input;
 
 namespace Parfuholic
 {
@@ -9,19 +9,36 @@ namespace Parfuholic
         public MainWindow()
         {
             InitializeComponent();
-
-            // Создаём объект DatabaseHelper
-            DatabaseHelper dbHelper = new DatabaseHelper();
-
-            // Проверяем подключение
-            dbHelper.TestConnection();
         }
 
         private void LoginButton_Click(object sender, RoutedEventArgs e)
         {
-            // Навигация на страницу входа
-            OverlayFrame.Navigate(new LoginPage());
-            OverlayFrame.Visibility = Visibility.Visible;
+            // Показываем Frame и загружаем страницу логина
+            LoginPage.Visibility = Visibility.Visible;
+            LoginPage.Navigate(new LoginPage());
+        }
+
+        private void OverlayFrame_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        {
+            // Закрываем оверлей при клике на фон
+            CloseOverlay();
+        }
+
+        public void CloseOverlay()
+        {
+            // Скрываем Frame и очищаем навигацию
+            LoginPage.Visibility = Visibility.Collapsed;
+            LoginPage.Content = null;
+
+            // Очищаем историю навигации
+            while (LoginPage.CanGoBack)
+            {
+                LoginPage.RemoveBackEntry();
+            }
+            while (LoginPage.CanGoForward)
+            {
+                LoginPage.RemoveBackEntry();
+            }
         }
     }
 }

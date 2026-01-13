@@ -226,12 +226,13 @@
             </WrapPanel>
         </ScrollViewer>
 
-        <Frame x:Name="OverlayFrame"
+        <Frame x:Name="LoginPage"
            Grid.Row="0"
            Grid.RowSpan="3"
            NavigationUIVisibility="Hidden"
            Background="#80000000"
-           Visibility="Collapsed"/>
+           Visibility="Collapsed"
+           MouseLeftButtonDown="OverlayFrame_MouseLeftButtonDown"/>
 
     </Grid>
 </Window>

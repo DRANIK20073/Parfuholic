@@ -2,20 +2,14 @@ D:\Others\Programming\Visual studio 2022\Parfuholic\Parfuholic\bin\Debug\Parfuho
 D:\Others\Programming\Visual studio 2022\Parfuholic\Parfuholic\bin\Debug\Parfuholic.exe
 D:\Others\Programming\Visual studio 2022\Parfuholic\Parfuholic\bin\Debug\Parfuholic.pdb
 D:\Others\Programming\Visual studio 2022\Parfuholic\Parfuholic\obj\Debug\Parfuholic.csproj.AssemblyReference.cache
-D:\Others\Programming\Visual studio 2022\Parfuholic\Parfuholic\obj\Debug\MainWindow.g.cs
 D:\Others\Programming\Visual studio 2022\Parfuholic\Parfuholic\obj\Debug\App.g.cs
 D:\Others\Programming\Visual studio 2022\Parfuholic\Parfuholic\obj\Debug\Parfuholic_MarkupCompile.cache
-D:\Others\Programming\Visual studio 2022\Parfuholic\Parfuholic\obj\Debug\MainWindow.baml
 D:\Others\Programming\Visual studio 2022\Parfuholic\Parfuholic\obj\Debug\Parfuholic.g.resources
 D:\Others\Programming\Visual studio 2022\Parfuholic\Parfuholic\obj\Debug\Parfuholic.Properties.Resources.resources
 D:\Others\Programming\Visual studio 2022\Parfuholic\Parfuholic\obj\Debug\Parfuholic.csproj.GenerateResource.cache
 D:\Others\Programming\Visual studio 2022\Parfuholic\Parfuholic\obj\Debug\Parfuholic.csproj.CoreCompileInputs.cache
 D:\Others\Programming\Visual studio 2022\Parfuholic\Parfuholic\obj\Debug\Parfuholic.exe
 D:\Others\Programming\Visual studio 2022\Parfuholic\Parfuholic\obj\Debug\Parfuholic.pdb
-D:\Others\Programming\Visual studio 2022\Parfuholic\Parfuholic\obj\Debug\LoginPage.baml
-D:\Others\Programming\Visual studio 2022\Parfuholic\Parfuholic\obj\Debug\RegisterPage.baml
-D:\Others\Programming\Visual studio 2022\Parfuholic\Parfuholic\obj\Debug\LoginPage.g.cs
-D:\Others\Programming\Visual studio 2022\Parfuholic\Parfuholic\obj\Debug\RegisterPage.g.cs
 C:\Users\user\Desktop\Parfuholic\Parfuholic\bin\Debug\Parfuholic.exe.config
 C:\Users\user\Desktop\Parfuholic\Parfuholic\bin\Debug\Parfuholic.exe
 C:\Users\user\Desktop\Parfuholic\Parfuholic\bin\Debug\Parfuholic.pdb
@@ -34,3 +28,15 @@ C:\Users\user\Desktop\Parfuholic\Parfuholic\obj\Debug\Parfuholic.csproj.Generate
 C:\Users\user\Desktop\Parfuholic\Parfuholic\obj\Debug\Parfuholic.csproj.CoreCompileInputs.cache
 C:\Users\user\Desktop\Parfuholic\Parfuholic\obj\Debug\Parfuholic.exe
 C:\Users\user\Desktop\Parfuholic\Parfuholic\obj\Debug\Parfuholic.pdb
+D:\Others\Programming\Visual studio 2022\Parfuholic\Parfuholic\obj\Debug\Pages\LoginPage.baml
+D:\Others\Programming\Visual studio 2022\Parfuholic\Parfuholic\obj\Debug\Pages\RegisterPage.baml
+D:\Others\Programming\Visual studio 2022\Parfuholic\Parfuholic\obj\Debug\Pages\LoginPage.g.cs
+D:\Others\Programming\Visual studio 2022\Parfuholic\Parfuholic\obj\Debug\Pages\RegisterPage.g.cs
+D:\Others\Programming\Visual studio 2022\Parfuholic\Parfuholic\obj\Debug\NavigationWindow.baml
+D:\Others\Programming\Visual studio 2022\Parfuholic\Parfuholic\obj\Debug\NavigationWindow.g.cs
+D:\Others\Programming\Visual studio 2022\Parfuholic\Parfuholic\obj\Debug\UserMainWindow.baml
+D:\Others\Programming\Visual studio 2022\Parfuholic\Parfuholic\obj\Debug\UserMainWindow.g.cs
+D:\Others\Programming\Visual studio 2022\Parfuholic\Parfuholic\obj\Debug\Pages\UserCabinetPage.baml
+D:\Others\Programming\Visual studio 2022\Parfuholic\Parfuholic\obj\Debug\Pages\UserCabinetPage.g.cs
+D:\Others\Programming\Visual studio 2022\Parfuholic\Parfuholic\obj\Debug\Pages\CatalogPage.baml
+D:\Others\Programming\Visual studio 2022\Parfuholic\Parfuholic\obj\Debug\Pages\CatalogPage.g.cs

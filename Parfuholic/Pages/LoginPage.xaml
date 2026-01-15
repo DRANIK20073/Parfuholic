@@ -2,14 +2,19 @@
       xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       Title="Вход"
-      MinHeight="800"
-      MinWidth="1280">
+      MinWidth="1280"
+      MinHeight="800">
 
-    <Grid Width="auto" Height="auto" Background="#80000000"
+    <!-- Затемнённый фон -->
+    <Grid Background="#80000000"
           MouseLeftButtonDown="BackgroundGrid_MouseLeftButtonDown">
 
-        <!-- Белый контейнер - предотвращаем закрытие при клике на него -->
-        <Grid Background="#FFFFFF" Width="700" Height="450" Margin="0"
+        <!-- Белый контейнер -->
+        <Grid Width="700"
+              Height="450"
+              Background="White"
+              HorizontalAlignment="Center"
+              VerticalAlignment="Center"
               MouseLeftButtonDown="ContainerGrid_MouseLeftButtonDown">
 
             <Grid.RowDefinitions>
@@ -21,7 +26,7 @@
             <TextBlock Text="Войти"
                        FontSize="36"
                        FontWeight="Bold"
-                       Margin="60,60,60,30"/>
+                       Margin="60,50,60,30"/>
 
             <StackPanel Grid.Row="1" Margin="60,0,60,60">
 
@@ -33,7 +38,8 @@
                              BorderThickness="0,0,0,1"
                              VerticalContentAlignment="Center"/>
 
-                    <TextBlock Text="Логин"
+                    <!-- Placeholder -->
+                    <TextBlock Text="Логин или Email"
                                Margin="5,0"
                                VerticalAlignment="Center"
                                Foreground="Gray"
@@ -43,7 +49,8 @@
                                 <Setter Property="FontSize" Value="18"/>
                                 <Setter Property="Visibility" Value="Collapsed"/>
                                 <Style.Triggers>
-                                    <DataTrigger Binding="{Binding Text, ElementName=LoginBox}" Value="">
+                                    <DataTrigger Binding="{Binding Text, ElementName=LoginBox}"
+                                                 Value="">
                                         <Setter Property="Visibility" Value="Visible"/>
                                     </DataTrigger>
                                 </Style.Triggers>
@@ -57,10 +64,11 @@
                     <PasswordBox x:Name="PasswordBox"
                                  FontSize="18"
                                  Height="40"
-                                 Padding="5,8,5,0"
                                  BorderThickness="0,0,0,1"
+                                 Padding="5,8,5,0"
                                  PasswordChanged="PasswordBox_PasswordChanged"/>
 
+                    <!-- Placeholder -->
                     <TextBlock x:Name="PasswordPlaceholder"
                                Text="Пароль"
                                FontSize="18"
@@ -70,25 +78,25 @@
                                IsHitTestVisible="False"/>
                 </Grid>
 
-                <!-- Текст со ссылкой -->
+                <!-- Ссылка на регистрацию -->
                 <TextBlock Margin="0,0,0,40">
                     <Run Text="У вас еще нет аккаунта? "/>
-                    <Hyperlink Name="RegisterLink"
-                               TextDecorations="Underline"
-                               Foreground="Black">
+                    <Hyperlink x:Name="RegisterLink"
+                               Foreground="Black"
+                               TextDecorations="Underline">
                         Зарегистрируйтесь
                     </Hyperlink>
                 </TextBlock>
 
-                <!-- Кнопка -->
+                <!-- Кнопка входа -->
                 <Button Content="Войти"
-                        Click="Login_Click"
                         Height="50"
+                        Width="200"
                         FontSize="18"
                         BorderThickness="2"
                         Background="White"
-                        Width="200"
-                        HorizontalAlignment="Right"/>
+                        HorizontalAlignment="Right"
+                        Click="Login_Click"/>
 
             </StackPanel>
         </Grid>

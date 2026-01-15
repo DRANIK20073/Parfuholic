@@ -4,9 +4,9 @@ using System.Windows.Input;
 
 namespace Parfuholic
 {
-    public partial class MainWindow : Window
+    public partial class NavigationWindow : Window
     {
-        public MainWindow()
+        public NavigationWindow()
         {
             InitializeComponent();
         }
@@ -40,5 +40,13 @@ namespace Parfuholic
                 LoginPage.RemoveBackEntry();
             }
         }
+
+        public void OpenUserMode()
+        {
+            UserMainWindow userWindow = new UserMainWindow();
+            userWindow.Show();
+            this.Close();
+        }
+
     }
 }

@@ -94,7 +94,7 @@ namespace Parfuholic
                 MessageBox.Show("Регистрация успешна");
 
                 // закрываем overlay
-                var main = Application.Current.MainWindow as MainWindow;
+                var main = Application.Current.MainWindow as NavigationWindow;
                 main?.CloseOverlay();
             }
             catch (Exception ex)

@@ -10,11 +10,11 @@ none
 false
 DEBUG;TRACE
 D:\Others\Programming\Visual studio 2022\Parfuholic\Parfuholic\App.xaml
-6-135752238
+9-1179705484
 
-121218899584
+15-191015595
 13-1310406943
-Pages\CatalogPage.xaml;Pages\LoginPage.xaml;NavigationWindow.xaml;Pages\RegisterPage.xaml;Pages\UserCabinetPage.xaml;UserMainWindow.xaml;
+Pages\CatalogPage.xaml;Pages\FavoritesPage.xaml;Pages\LoginPage.xaml;NavigationWindow.xaml;Pages\OrdersHistoryPage.xaml;Pages\ProfileDataPage.xaml;Pages\RegisterPage.xaml;Pages\UserCabinetPage.xaml;UserMainWindow.xaml;
 
 False
 

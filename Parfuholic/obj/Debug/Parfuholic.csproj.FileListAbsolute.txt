@@ -40,3 +40,11 @@ D:\Others\Programming\Visual studio 2022\Parfuholic\Parfuholic\obj\Debug\Pages\U
 D:\Others\Programming\Visual studio 2022\Parfuholic\Parfuholic\obj\Debug\Pages\UserCabinetPage.g.cs
 D:\Others\Programming\Visual studio 2022\Parfuholic\Parfuholic\obj\Debug\Pages\CatalogPage.baml
 D:\Others\Programming\Visual studio 2022\Parfuholic\Parfuholic\obj\Debug\Pages\CatalogPage.g.cs
+D:\Others\Programming\Visual studio 2022\Parfuholic\Parfuholic\obj\Debug\Pages\FavoritesPage.baml
+D:\Others\Programming\Visual studio 2022\Parfuholic\Parfuholic\obj\Debug\Pages\OrdersHistoryPage.baml
+D:\Others\Programming\Visual studio 2022\Parfuholic\Parfuholic\obj\Debug\Pages\FavoritesPage.g.cs
+D:\Others\Programming\Visual studio 2022\Parfuholic\Parfuholic\obj\Debug\Pages\OrdersHistoryPage.g.cs
+D:\Others\Programming\Visual studio 2022\Parfuholic\Parfuholic\obj\Debug\Pages\ProfileDataPage.baml
+D:\Others\Programming\Visual studio 2022\Parfuholic\Parfuholic\obj\Debug\Pages\ProfileDataPage.g.cs
+D:\Others\Programming\Visual studio 2022\Parfuholic\Parfuholic\obj\Debug\GeneratedInternalTypeHelper.g.cs
+D:\Others\Programming\Visual studio 2022\Parfuholic\Parfuholic\obj\Debug\Parfuholic_MarkupCompile.lref

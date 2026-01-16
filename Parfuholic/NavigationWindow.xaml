@@ -119,113 +119,12 @@
             </StackPanel>
         </Border>
 
-        <!-- PRODUCTS -->
-        <ScrollViewer Margin="35,0,0,0" Grid.Row="2">
-            <WrapPanel HorizontalAlignment="Left" Margin="20">
+        <!-- CONTENT -->
+        <Frame x:Name="CatalogFrame"
+       Grid.Row="2"
+       NavigationUIVisibility="Hidden"
+       Background="White"/>
 
-                <Border Style="{StaticResource ProductCard}">
-                    <StackPanel>
-                        <Border Height="220"
-                                Background="#FFEDEDED"
-                                CornerRadius="12,12,0,0">
-                            <TextBlock Text="Фото"
-                                       HorizontalAlignment="Center"
-                                       VerticalAlignment="Center"
-                                       Foreground="Gray"/>
-                        </Border>
-
-                        <StackPanel Margin="15">
-                            <TextBlock Text="Dior Sauvage"
-                                       FontWeight="Bold"
-                                       FontSize="16"/>
-                            <TextBlock Text="100 ml"
-                                       Foreground="Gray"
-                                       Margin="0,5"/>
-                            <TextBlock Text="12 500 ₽"
-                                       FontWeight="Bold"
-                                       FontSize="18"/>
-                        </StackPanel>
-                    </StackPanel>
-                </Border>
-
-                <Border Style="{StaticResource ProductCard}">
-                    <StackPanel>
-                        <Border Height="220"
-                            Background="#FFEDEDED"
-                            CornerRadius="12,12,0,0">
-                            <TextBlock Text="Фото"
-                               HorizontalAlignment="Center"
-                               VerticalAlignment="Center"
-                               Foreground="Gray"/>
-                        </Border>
-
-                        <StackPanel Margin="15">
-                            <TextBlock Text="Dior Sauvage"
-                               FontWeight="Bold"
-                               FontSize="16"/>
-                            <TextBlock Text="100 ml"
-                               Foreground="Gray"
-                               Margin="0,5"/>
-                            <TextBlock Text="12 500 ₽"
-                               FontWeight="Bold"
-                               FontSize="18"/>
-                        </StackPanel>
-                    </StackPanel>
-                </Border>
-
-                <Border Style="{StaticResource ProductCard}">
-                    <StackPanel>
-                        <Border Height="220"
-                            Background="#FFEDEDED"
-                            CornerRadius="12,12,0,0">
-                            <TextBlock Text="Фото"
-                               HorizontalAlignment="Center"
-                               VerticalAlignment="Center"
-                               Foreground="Gray"/>
-                        </Border>
-
-                        <StackPanel Margin="15">
-                            <TextBlock Text="Dior Sauvage"
-                               FontWeight="Bold"
-                               FontSize="16"/>
-                            <TextBlock Text="100 ml"
-                               Foreground="Gray"
-                               Margin="0,5"/>
-                            <TextBlock Text="12 500 ₽"
-                               FontWeight="Bold"
-                               FontSize="18"/>
-                        </StackPanel>
-                    </StackPanel>
-                </Border>
-
-                <Border Style="{StaticResource ProductCard}">
-                    <StackPanel>
-                        <Border Height="220"
-                            Background="#FFEDEDED"
-                            CornerRadius="12,12,0,0">
-                            <TextBlock Text="Фото"
-                               HorizontalAlignment="Center"
-                               VerticalAlignment="Center"
-                               Foreground="Gray"/>
-                        </Border>
-
-                        <StackPanel Margin="15">
-                            <TextBlock Text="Dior Sauvage"
-                               FontWeight="Bold"
-                               FontSize="16"/>
-                            <TextBlock Text="100 ml"
-                               Foreground="Gray"
-                               Margin="0,5"/>
-                            <TextBlock Text="12 500 ₽"
-                               FontWeight="Bold"
-                               FontSize="18"/>
-                        </StackPanel>
-                    </StackPanel>
-                </Border>
-
-            </WrapPanel>
-        </ScrollViewer>
-        
         <!--Страница регистрации и логина-->
         <Frame x:Name="LoginPage"
            Grid.Row="0"

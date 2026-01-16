@@ -1,4 +1,5 @@
-﻿using System.Windows;
+﻿using Parfuholic.Pages;
+using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 
@@ -9,6 +10,7 @@ namespace Parfuholic
         public NavigationWindow()
         {
             InitializeComponent();
+            CatalogFrame.Navigate(new CatalogPage());
         }
 
         private void LoginButton_Click(object sender, RoutedEventArgs e)

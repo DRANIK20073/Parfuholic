@@ -1,4 +1,6 @@
-﻿using System.Windows;
+﻿using Parfuholic.Pages;
+using System.Windows;
+using System.Windows.Input;
 
 namespace Parfuholic
 {
@@ -19,9 +21,20 @@ namespace Parfuholic
         }
 
         // 🏠 КАТАЛОГ
-        private void Logo_Click(object sender, RoutedEventArgs e)
+        private void Logo_Click(object sender, MouseButtonEventArgs e)
         {
-            CatalogFrame.Navigate(new CatalogPage());
+            UserCabinetFrame.Navigate(new CatalogPage());
         }
+
+
+        // ВЫХОД ИЗ АККАУНТА
+        public void Logout()
+        {
+            NavigationWindow nav = new NavigationWindow();
+            nav.Show();
+            this.Close();
+        }
+
     }
+
 }

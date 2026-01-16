@@ -56,7 +56,8 @@
                 <TextBlock Text="PARFUHOLIC"
                            FontSize="28"
                            FontWeight="Bold"
-                           VerticalAlignment="Center"/>
+                           VerticalAlignment="Center"
+                           MouseLeftButtonDown="Logo_Click"/>
 
                 <!-- SEARCH -->
                 <Grid Grid.Column="1" Margin="40,0" VerticalAlignment="Center">

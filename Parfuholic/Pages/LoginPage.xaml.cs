@@ -60,38 +60,51 @@ namespace Parfuholic
                 return;
             }
 
+            string login = LoginBox.Text.Trim();
+            string password = PasswordBox.Password;
+
             try
             {
                 using (SqlConnection conn = new SqlConnection(Database.ConnectionString))
                 {
                     conn.Open();
 
+                    // Объединенный запрос для поиска пользователя/админа
                     SqlCommand cmd = new SqlCommand(@"
-                SELECT COUNT(*) 
-                FROM Users
-                WHERE Login = @login
-                  AND Password = @password", conn);
+                SELECT 
+                    CASE 
+                        WHEN EXISTS (SELECT 1 FROM Admins WHERE Login = @login AND Password = @password) 
+                        THEN 'Admin'
+                        WHEN EXISTS (SELECT 1 FROM Users WHERE Login = @login AND Password = @password) 
+                        THEN 'User'
+                        ELSE 'NotFound'
+                    END AS UserType", conn);
 
-                    cmd.Parameters.AddWithValue("@login", LoginBox.Text.Trim());
-                    cmd.Parameters.AddWithValue("@password", PasswordBox.Password);
+                    cmd.Parameters.AddWithValue("@login", login);
+                    cmd.Parameters.AddWithValue("@password", password);
 
-                    int count = (int)cmd.ExecuteScalar();
+                    string userType = cmd.ExecuteScalar()?.ToString();
 
-                    if (count == 1)
+                    switch (userType)
                     {
-                        MessageBox.Show("Вход выполнен");
+                        case "Admin":
+                            MessageBox.Show("Вход выполнен как администратор");
+                            AdminWindow adminWindow = new AdminWindow();
+                            adminWindow.Show();
+                            break;
 
-                        // переключаемся на UserMainWindow
-                        UserMainWindow userWindow = new UserMainWindow();
-                        userWindow.Show();
+                        case "User":
+                            MessageBox.Show("Вход выполнен");
+                            UserMainWindow userWindow = new UserMainWindow();
+                            userWindow.Show();
+                            break;
 
-                        // закрываем окно навигации
-                        Window.GetWindow(this)?.Close();
+                        default:
+                            MessageBox.Show("Неверный логин или пароль");
+                            return;
                     }
-                    else
-                    {
-                        MessageBox.Show("Неверный логин или пароль");
-                    }
+
+                    Window.GetWindow(this)?.Close();
                 }
             }
             catch (Exception ex)
@@ -99,8 +112,5 @@ namespace Parfuholic
                 MessageBox.Show("Ошибка входа:\n" + ex.Message);
             }
         }
-
-
-
     }
 }

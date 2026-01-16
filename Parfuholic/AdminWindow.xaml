@@ -1,0 +1,52 @@
+﻿<Window x:Class="Parfuholic.AdminWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Parfuholic"
+        WindowState="Maximized"
+        WindowStartupLocation="CenterScreen"
+        MinWidth="1280"
+        MinHeight="800"
+        Background="#FFF5F5F5">
+
+    <!-- ================= СТИЛИ ================= -->
+    <Window.Resources>
+
+        <!-- Кнопки в шапке -->
+        <Style x:Key="HeaderButton" TargetType="Button">
+            <Setter Property="Margin" Value="10,0"/>
+            <Setter Property="Padding" Value="20,8"/>
+            <Setter Property="FontSize" Value="14"/>
+            <Setter Property="Background" Value="#FFFFFF"/>
+        </Style>
+
+        <!-- Кнопки категорий -->
+        <Style x:Key="CategoryButton" TargetType="Button">
+            <Setter Property="Margin" Value="10,0"/>
+            <Setter Property="Padding" Value="20,6"/>
+            <Setter Property="FontSize" Value="15"/>
+            <Setter Property="Background" Value="Transparent"/>
+            <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="Cursor" Value="Hand"/>
+        </Style>
+
+        <!-- Карточка товара -->
+        <Style x:Key="ProductCard" TargetType="Border">
+            <Setter Property="Width" Value="260"/>
+            <Setter Property="Margin" Value="15"/>
+            <Setter Property="CornerRadius" Value="12"/>
+            <Setter Property="Background" Value="White"/>
+        </Style>
+
+    </Window.Resources>
+
+    <!-- ================= РАЗМЕТКА ================= -->
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+
+    </Grid>
+</Window>

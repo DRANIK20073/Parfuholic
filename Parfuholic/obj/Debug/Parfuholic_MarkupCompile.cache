@@ -4,17 +4,17 @@
 winexe
 C#
 .cs
-D:\Others\Programming\Visual studio 2022\Parfuholic\Parfuholic\obj\Debug\
+C:\Users\user\Desktop\Parfuholic\Parfuholic\obj\Debug\
 Parfuholic
 none
 false
 DEBUG;TRACE
-D:\Others\Programming\Visual studio 2022\Parfuholic\Parfuholic\App.xaml
-9-1179705484
+C:\Users\user\Desktop\Parfuholic\Parfuholic\App.xaml
+101755130605
 
-15-191015595
+16-452316544
 13-1310406943
-Pages\CatalogPage.xaml;Pages\FavoritesPage.xaml;Pages\LoginPage.xaml;NavigationWindow.xaml;Pages\OrdersHistoryPage.xaml;Pages\ProfileDataPage.xaml;Pages\RegisterPage.xaml;Pages\UserCabinetPage.xaml;UserMainWindow.xaml;
+AdminWindow.xaml;Pages\CatalogPage.xaml;Pages\FavoritesPage.xaml;Pages\LoginPage.xaml;NavigationWindow.xaml;Pages\OrdersHistoryPage.xaml;Pages\ProfileDataPage.xaml;Pages\RegisterPage.xaml;Pages\UserCabinetPage.xaml;UserMainWindow.xaml;
 
 False
 

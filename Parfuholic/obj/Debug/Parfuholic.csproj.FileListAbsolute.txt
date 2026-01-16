@@ -14,12 +14,6 @@ C:\Users\user\Desktop\Parfuholic\Parfuholic\bin\Debug\Parfuholic.exe.config
 C:\Users\user\Desktop\Parfuholic\Parfuholic\bin\Debug\Parfuholic.exe
 C:\Users\user\Desktop\Parfuholic\Parfuholic\bin\Debug\Parfuholic.pdb
 C:\Users\user\Desktop\Parfuholic\Parfuholic\obj\Debug\Parfuholic.csproj.AssemblyReference.cache
-C:\Users\user\Desktop\Parfuholic\Parfuholic\obj\Debug\LoginPage.baml
-C:\Users\user\Desktop\Parfuholic\Parfuholic\obj\Debug\MainWindow.baml
-C:\Users\user\Desktop\Parfuholic\Parfuholic\obj\Debug\RegisterPage.baml
-C:\Users\user\Desktop\Parfuholic\Parfuholic\obj\Debug\LoginPage.g.cs
-C:\Users\user\Desktop\Parfuholic\Parfuholic\obj\Debug\MainWindow.g.cs
-C:\Users\user\Desktop\Parfuholic\Parfuholic\obj\Debug\RegisterPage.g.cs
 C:\Users\user\Desktop\Parfuholic\Parfuholic\obj\Debug\App.g.cs
 C:\Users\user\Desktop\Parfuholic\Parfuholic\obj\Debug\Parfuholic_MarkupCompile.cache
 C:\Users\user\Desktop\Parfuholic\Parfuholic\obj\Debug\Parfuholic.g.resources
@@ -48,3 +42,25 @@ D:\Others\Programming\Visual studio 2022\Parfuholic\Parfuholic\obj\Debug\Pages\P
 D:\Others\Programming\Visual studio 2022\Parfuholic\Parfuholic\obj\Debug\Pages\ProfileDataPage.g.cs
 D:\Others\Programming\Visual studio 2022\Parfuholic\Parfuholic\obj\Debug\GeneratedInternalTypeHelper.g.cs
 D:\Others\Programming\Visual studio 2022\Parfuholic\Parfuholic\obj\Debug\Parfuholic_MarkupCompile.lref
+C:\Users\user\Desktop\Parfuholic\Parfuholic\obj\Debug\Pages\FavoritesPage.baml
+C:\Users\user\Desktop\Parfuholic\Parfuholic\obj\Debug\Pages\LoginPage.baml
+C:\Users\user\Desktop\Parfuholic\Parfuholic\obj\Debug\NavigationWindow.baml
+C:\Users\user\Desktop\Parfuholic\Parfuholic\obj\Debug\Pages\OrdersHistoryPage.baml
+C:\Users\user\Desktop\Parfuholic\Parfuholic\obj\Debug\Pages\ProfileDataPage.baml
+C:\Users\user\Desktop\Parfuholic\Parfuholic\obj\Debug\Pages\RegisterPage.baml
+C:\Users\user\Desktop\Parfuholic\Parfuholic\obj\Debug\Pages\UserCabinetPage.baml
+C:\Users\user\Desktop\Parfuholic\Parfuholic\obj\Debug\UserMainWindow.baml
+C:\Users\user\Desktop\Parfuholic\Parfuholic\obj\Debug\Pages\CatalogPage.g.cs
+C:\Users\user\Desktop\Parfuholic\Parfuholic\obj\Debug\Pages\FavoritesPage.g.cs
+C:\Users\user\Desktop\Parfuholic\Parfuholic\obj\Debug\Pages\LoginPage.g.cs
+C:\Users\user\Desktop\Parfuholic\Parfuholic\obj\Debug\NavigationWindow.g.cs
+C:\Users\user\Desktop\Parfuholic\Parfuholic\obj\Debug\Pages\OrdersHistoryPage.g.cs
+C:\Users\user\Desktop\Parfuholic\Parfuholic\obj\Debug\Pages\ProfileDataPage.g.cs
+C:\Users\user\Desktop\Parfuholic\Parfuholic\obj\Debug\Pages\RegisterPage.g.cs
+C:\Users\user\Desktop\Parfuholic\Parfuholic\obj\Debug\Pages\UserCabinetPage.g.cs
+C:\Users\user\Desktop\Parfuholic\Parfuholic\obj\Debug\UserMainWindow.g.cs
+C:\Users\user\Desktop\Parfuholic\Parfuholic\obj\Debug\GeneratedInternalTypeHelper.g.cs
+C:\Users\user\Desktop\Parfuholic\Parfuholic\obj\Debug\Parfuholic_MarkupCompile.lref
+C:\Users\user\Desktop\Parfuholic\Parfuholic\obj\Debug\Pages\CatalogPage.baml
+C:\Users\user\Desktop\Parfuholic\Parfuholic\obj\Debug\AdminWindow.baml
+C:\Users\user\Desktop\Parfuholic\Parfuholic\obj\Debug\AdminWindow.g.cs

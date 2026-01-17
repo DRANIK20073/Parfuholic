@@ -26,7 +26,7 @@
 
                 <!-- ЛОГИН -->
                 <Grid Margin="0,0,0,30">
-                    <TextBox x:Name="UserNameBox"
+                    <TextBox x:Name="LoginBox"
                              FontSize="18"
                              Height="40"
                              BorderThickness="0,0,0,1"
@@ -42,7 +42,7 @@
                                 <Setter Property="FontSize" Value="18"/>
                                 <Setter Property="Visibility" Value="Collapsed"/>
                                 <Style.Triggers>
-                                    <DataTrigger Binding="{Binding Text, ElementName=UserNameBox}" Value="">
+                                    <DataTrigger Binding="{Binding Text, ElementName=LoginBox}" Value="">
                                         <Setter Property="Visibility" Value="Visible"/>
                                     </DataTrigger>
                                 </Style.Triggers>

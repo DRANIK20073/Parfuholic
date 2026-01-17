@@ -60,11 +60,18 @@
     </Compile>
     <Compile Include="Database.cs" />
     <Compile Include="Models\Perfume.cs" />
+    <Compile Include="Models\User.cs" />
+    <Compile Include="Pages\AddPerfumePage.xaml.cs">
+      <DependentUpon>AddPerfumePage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Pages\CatalogPage.xaml.cs">
       <DependentUpon>CatalogPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Pages\FavoritesPage.xaml.cs">
       <DependentUpon>FavoritesPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\ManagePerfumesPage.xaml.cs">
+      <DependentUpon>ManagePerfumesPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Pages\OrdersHistoryPage.xaml.cs">
       <DependentUpon>OrdersHistoryPage.xaml</DependentUpon>
@@ -75,13 +82,23 @@
     <Compile Include="Pages\RegisterPage.xaml.cs">
       <DependentUpon>RegisterPage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Pages\ReportsPage.xaml.cs">
+      <DependentUpon>ReportsPage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Pages\UserCabinetPage.xaml.cs">
       <DependentUpon>UserCabinetPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\UsersAdminPage.xaml.cs">
+      <DependentUpon>UsersAdminPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="UserMainWindow.xaml.cs">
       <DependentUpon>UserMainWindow.xaml</DependentUpon>
     </Compile>
     <Page Include="AdminWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Pages\AddPerfumePage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -112,6 +129,10 @@
       <DependentUpon>NavigationWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="Pages\ManagePerfumesPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Pages\OrdersHistoryPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -124,7 +145,15 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Pages\ReportsPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Pages\UserCabinetPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Pages\UsersAdminPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -158,14 +187,6 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="source\parfum1.png" />
-    <Resource Include="source\parfum2.png" />
-    <Resource Include="source\parfum3.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="source\cross.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

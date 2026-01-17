@@ -67,41 +67,70 @@ namespace Parfuholic
         //РЕГИСТРАЦИЯ ПОЛЬЗОВАТЕЛЯ В БД
         private void Register_Click(object sender, RoutedEventArgs e)
         {
-            if (string.IsNullOrWhiteSpace(UserNameBox.Text) ||
-                string.IsNullOrWhiteSpace(EmailBox.Text) ||
-                string.IsNullOrWhiteSpace(PasswordBox.Password))
+            string login = LoginBox.Text.Trim();
+            string email = EmailBox.Text.Trim();
+            string password = PasswordBox.Password;
+
+            if (string.IsNullOrWhiteSpace(login) ||
+                string.IsNullOrWhiteSpace(email) ||
+                string.IsNullOrWhiteSpace(password))
             {
                 MessageBox.Show("Заполните все поля");
                 return;
             }
 
-            try
+            using (SqlConnection conn = new SqlConnection(Database.ConnectionString))
             {
-                using (SqlConnection conn = new SqlConnection(Database.ConnectionString))
+                conn.Open();
+
+                // 1️⃣ Проверка на админа
+                SqlCommand checkAdmin = new SqlCommand(@"
+                    SELECT COUNT(*) 
+                    FROM Admins 
+                    WHERE Login = @login", conn);
+
+                checkAdmin.Parameters.AddWithValue("@login", login);
+
+                int adminExists = (int)checkAdmin.ExecuteScalar();
+
+                if (adminExists > 0)
                 {
-                    conn.Open();
-
-                    var cmd = new SqlCommand(
-                        "INSERT INTO Users (Login, Email, Password) VALUES (@u, @e, @p)", conn);
-
-                    cmd.Parameters.AddWithValue("@u", UserNameBox.Text);
-                    cmd.Parameters.AddWithValue("@e", EmailBox.Text);
-                    cmd.Parameters.AddWithValue("@p", PasswordBox.Password);
-
-                    cmd.ExecuteNonQuery();
+                    MessageBox.Show("Этот логин зарезервирован");
+                    return;
                 }
 
-                MessageBox.Show("Регистрация успешна");
+                // 2️⃣ Проверка на пользователя
+                SqlCommand checkUser = new SqlCommand(@"
+                    SELECT COUNT(*) 
+                    FROM Users 
+                    WHERE Login = @login OR Email = @email", conn);
 
-                // закрываем overlay
-                var main = Application.Current.MainWindow as NavigationWindow;
-                main?.CloseOverlay();
+                checkUser.Parameters.AddWithValue("@login", login);
+                checkUser.Parameters.AddWithValue("@email", email);
+
+                int userExists = (int)checkUser.ExecuteScalar();
+
+                if (userExists > 0)
+                {
+                    MessageBox.Show("Пользователь с таким логином или почтой уже существует");
+                    return;
+                }
+
+                // 3️⃣ Регистрация
+                SqlCommand insertUser = new SqlCommand(@"
+                    INSERT INTO Users (Login, Email, Password)
+                    VALUES (@login, @email, @password)", conn);
+
+                insertUser.Parameters.AddWithValue("@login", login);
+                insertUser.Parameters.AddWithValue("@email", email);
+                insertUser.Parameters.AddWithValue("@password", password);
+
+                insertUser.ExecuteNonQuery();
             }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.ToString());
-            }
+
+            MessageBox.Show("Регистрация успешна");
         }
+
 
     }
 }

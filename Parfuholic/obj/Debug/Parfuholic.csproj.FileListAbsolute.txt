@@ -64,3 +64,13 @@ C:\Users\user\Desktop\Parfuholic\Parfuholic\obj\Debug\Parfuholic_MarkupCompile.l
 C:\Users\user\Desktop\Parfuholic\Parfuholic\obj\Debug\Pages\CatalogPage.baml
 C:\Users\user\Desktop\Parfuholic\Parfuholic\obj\Debug\AdminWindow.baml
 C:\Users\user\Desktop\Parfuholic\Parfuholic\obj\Debug\AdminWindow.g.cs
+D:\Others\Programming\Visual studio 2022\Parfuholic\Parfuholic\obj\Debug\AdminWindow.baml
+D:\Others\Programming\Visual studio 2022\Parfuholic\Parfuholic\obj\Debug\AdminWindow.g.cs
+D:\Others\Programming\Visual studio 2022\Parfuholic\Parfuholic\obj\Debug\Pages\AddPerfumePage.baml
+D:\Others\Programming\Visual studio 2022\Parfuholic\Parfuholic\obj\Debug\Pages\ManagePerfumesPage.baml
+D:\Others\Programming\Visual studio 2022\Parfuholic\Parfuholic\obj\Debug\Pages\UsersAdminPage.baml
+D:\Others\Programming\Visual studio 2022\Parfuholic\Parfuholic\obj\Debug\Pages\AddPerfumePage.g.cs
+D:\Others\Programming\Visual studio 2022\Parfuholic\Parfuholic\obj\Debug\Pages\ManagePerfumesPage.g.cs
+D:\Others\Programming\Visual studio 2022\Parfuholic\Parfuholic\obj\Debug\Pages\UsersAdminPage.g.cs
+D:\Others\Programming\Visual studio 2022\Parfuholic\Parfuholic\obj\Debug\Pages\ReportsPage.baml
+D:\Others\Programming\Visual studio 2022\Parfuholic\Parfuholic\obj\Debug\Pages\ReportsPage.g.cs

@@ -1,0 +1,63 @@
+﻿<Page x:Class="Parfuholic.Pages.UsersAdminPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      Background="#FFF5F5F5">
+
+    <Grid Margin="30">
+
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <!-- Заголовок -->
+        <TextBlock Text="Пользователи"
+                   FontSize="28"
+                   FontWeight="Bold"
+                   Margin="0,0,0,30"/>
+
+        <!-- Таблица пользователей -->
+        <DataGrid x:Name="UsersGrid"
+                  Grid.Row="1"
+                  AutoGenerateColumns="False"
+                  CanUserAddRows="False"
+                  IsReadOnly="True"
+                  Background="White"
+                  HeadersVisibility="Column"
+                  RowHeight="35">
+
+            <DataGrid.Columns>
+
+                <!-- Логин -->
+                <DataGridTextColumn Header="Логин"
+                                    Binding="{Binding Login}"
+                                    Width="*"/>
+
+                <!-- Email -->
+                <DataGridTextColumn Header="Email"
+                                    Binding="{Binding Email}"
+                                    Width="*"/>
+
+                <!-- Заблокирован -->
+                <DataGridCheckBoxColumn Header="Заблокирован"
+                                        Binding="{Binding IsBlocked}"
+                                        Width="150"/>
+
+                <!-- Действие -->
+                <DataGridTemplateColumn Header="Действие" Width="180">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <Button Content="Блок / Разблок"
+                                    Click="BlockUser_Click"
+                                    Tag="{Binding UserId}"
+                                    Height="32"/>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+
+            </DataGrid.Columns>
+
+        </DataGrid>
+
+    </Grid>
+</Page>

@@ -1,0 +1,293 @@
+﻿<Page x:Class="Parfuholic.Pages.AddPerfumePage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      Background="White">
+
+    <ScrollViewer VerticalScrollBarVisibility="Auto">
+        <StackPanel Width="500" HorizontalAlignment="Center" Margin="0,40,0,40">
+
+            <TextBlock Text="Добавить парфюм"
+                       FontSize="28"
+                       FontWeight="Bold"
+                       Margin="0,0,0,40"
+                       HorizontalAlignment="Center"/>
+
+            <!-- Название -->
+            <Grid Margin="0,0,0,20">
+                <TextBox x:Name="NameBox"
+                         Height="40"
+                         FontSize="16"
+                         VerticalContentAlignment="Center"
+                         BorderThickness="0,0,0,1"/>
+                <TextBlock Text="Название"
+                           Foreground="Gray"
+                           IsHitTestVisible="False"
+                           VerticalAlignment="Center">
+                    <TextBlock.Style>
+                        <Style TargetType="TextBlock">
+                            <Setter Property="Visibility" Value="Collapsed"/>
+                            <Style.Triggers>
+                                <DataTrigger Binding="{Binding Text, ElementName=NameBox}" Value="">
+                                    <Setter Property="Visibility" Value="Visible"/>
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </TextBlock.Style>
+                </TextBlock>
+            </Grid>
+
+            <!-- Бренд -->
+            <Grid Margin="0,0,0,20">
+                <TextBox x:Name="BrandBox"
+                         Height="40"
+                         FontSize="16"
+                         VerticalContentAlignment="Center"
+                         BorderThickness="0,0,0,1"/>
+                <TextBlock Text="Бренд"
+                           Foreground="Gray"
+                           IsHitTestVisible="False"
+                           VerticalAlignment="Center">
+                    <TextBlock.Style>
+                        <Style TargetType="TextBlock">
+                            <Setter Property="Visibility" Value="Collapsed"/>
+                            <Style.Triggers>
+                                <DataTrigger Binding="{Binding Text, ElementName=BrandBox}" Value="">
+                                    <Setter Property="Visibility" Value="Visible"/>
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </TextBlock.Style>
+                </TextBlock>
+            </Grid>
+
+            <!-- Арома группа -->
+            <Grid Margin="0,0,0,20">
+                <TextBox x:Name="AromaGroupBox"
+                         Height="40"
+                         FontSize="16"
+                         VerticalContentAlignment="Center"
+                         BorderThickness="0,0,0,1"/>
+                <TextBlock Text="Группа ароматов"
+                           Foreground="Gray"
+                           IsHitTestVisible="False"
+                           VerticalAlignment="Center">
+                    <TextBlock.Style>
+                        <Style TargetType="TextBlock">
+                            <Setter Property="Visibility" Value="Collapsed"/>
+                            <Style.Triggers>
+                                <DataTrigger Binding="{Binding Text, ElementName=AromaGroupBox}" Value="">
+                                    <Setter Property="Visibility" Value="Visible"/>
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </TextBlock.Style>
+                </TextBlock>
+            </Grid>
+
+            <!-- Базовые ноты -->
+            <Grid Margin="0,0,0,20">
+                <TextBox x:Name="BaseNotesBox"
+                         Height="40"
+                         FontSize="16"
+                         VerticalContentAlignment="Center"
+                         BorderThickness="0,0,0,1"/>
+                <TextBlock Text="Базовые ноты"
+                           Foreground="Gray"
+                           IsHitTestVisible="False"
+                           VerticalAlignment="Center">
+                    <TextBlock.Style>
+                        <Style TargetType="TextBlock">
+                            <Setter Property="Visibility" Value="Collapsed"/>
+                            <Style.Triggers>
+                                <DataTrigger Binding="{Binding Text, ElementName=BaseNotesBox}" Value="">
+                                    <Setter Property="Visibility" Value="Visible"/>
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </TextBlock.Style>
+                </TextBlock>
+            </Grid>
+
+            <!-- Средние ноты -->
+            <Grid Margin="0,0,0,20">
+                <TextBox x:Name="MiddleNotesBox"
+                         Height="40"
+                         FontSize="16"
+                         VerticalContentAlignment="Center"
+                         BorderThickness="0,0,0,1"/>
+                <TextBlock Text="Средние ноты"
+                   Foreground="Gray"
+                   IsHitTestVisible="False"
+                   VerticalAlignment="Center">
+                    <TextBlock.Style>
+                        <Style TargetType="TextBlock">
+                            <Setter Property="Visibility" Value="Collapsed"/>
+                            <Style.Triggers>
+                                <DataTrigger Binding="{Binding Text, ElementName=MiddleNotesBox}" Value="">
+                                    <Setter Property="Visibility" Value="Visible"/>
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </TextBlock.Style>
+                </TextBlock>
+            </Grid>
+
+            <!-- Высокие ноты -->
+            <Grid Margin="0,0,0,20">
+                <TextBox x:Name="TopNotesBox"
+                         Height="40"
+                         FontSize="16"
+                         VerticalContentAlignment="Center"
+                         BorderThickness="0,0,0,1"/>
+                <TextBlock Text="Высокие ноты"
+                   Foreground="Gray"
+                   IsHitTestVisible="False"
+                   VerticalAlignment="Center">
+                    <TextBlock.Style>
+                        <Style TargetType="TextBlock">
+                            <Setter Property="Visibility" Value="Collapsed"/>
+                            <Style.Triggers>
+                                <DataTrigger Binding="{Binding Text, ElementName=TopNotesBox}" Value="">
+                                    <Setter Property="Visibility" Value="Visible"/>
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </TextBlock.Style>
+                </TextBlock>
+            </Grid>
+
+            <!-- Для кого -->
+            <Grid Margin="0,0,0,20">
+                <TextBox x:Name="ForWhomBox"
+                         Height="40"
+                         FontSize="16"
+                         VerticalContentAlignment="Center"
+                         BorderThickness="0,0,0,1"/>
+                <TextBlock Text="Для кого"
+                           Foreground="Gray"
+                           IsHitTestVisible="False"
+                           VerticalAlignment="Center">
+                    <TextBlock.Style>
+                        <Style TargetType="TextBlock">
+                            <Setter Property="Visibility" Value="Collapsed"/>
+                            <Style.Triggers>
+                                <DataTrigger Binding="{Binding Text, ElementName=ForWhomBox}" Value="">
+                                    <Setter Property="Visibility" Value="Visible"/>
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </TextBlock.Style>
+                </TextBlock>
+            </Grid>
+
+            <!-- Объём -->
+            <Grid Margin="0,0,0,20">
+                <TextBox x:Name="VolumeBox"
+                         Height="40"
+                         FontSize="16"
+                         VerticalContentAlignment="Center"
+                         BorderThickness="0,0,0,1"/>
+                <TextBlock Text="Объём (например, 50 мл)"
+                           Foreground="Gray"
+                           IsHitTestVisible="False"
+                           VerticalAlignment="Center">
+                    <TextBlock.Style>
+                        <Style TargetType="TextBlock">
+                            <Setter Property="Visibility" Value="Collapsed"/>
+                            <Style.Triggers>
+                                <DataTrigger Binding="{Binding Text, ElementName=VolumeBox}" Value="">
+                                    <Setter Property="Visibility" Value="Visible"/>
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </TextBlock.Style>
+                </TextBlock>
+            </Grid>
+
+            <!-- Цена -->
+            <Grid Margin="0,0,0,30">
+                <TextBox x:Name="PriceBox"
+                         Height="40"
+                         FontSize="16"
+                         VerticalContentAlignment="Center"
+                         BorderThickness="0,0,0,1"/>
+                <TextBlock Text="Цена"
+                           Foreground="Gray"
+                           IsHitTestVisible="False"
+                           VerticalAlignment="Center">
+                    <TextBlock.Style>
+                        <Style TargetType="TextBlock">
+                            <Setter Property="Visibility" Value="Collapsed"/>
+                            <Style.Triggers>
+                                <DataTrigger Binding="{Binding Text, ElementName=PriceBox}" Value="">
+                                    <Setter Property="Visibility" Value="Visible"/>
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </TextBlock.Style>
+                </TextBlock>
+            </Grid>
+
+            <!-- Цена -->
+            <Grid Margin="0,0,0,30">
+                <TextBox x:Name="QuantityBox"
+                         Height="40"
+                         FontSize="16"
+                         VerticalContentAlignment="Center"
+                         BorderThickness="0,0,0,1"/>
+                <TextBlock Text="Количество"
+                           Foreground="Gray"
+                           IsHitTestVisible="False"
+                           VerticalAlignment="Center">
+                    <TextBlock.Style>
+                        <Style TargetType="TextBlock">
+                            <Setter Property="Visibility" Value="Collapsed"/>
+                            <Style.Triggers>
+                                <DataTrigger Binding="{Binding Text, ElementName=QuantityBox}" Value="">
+                                    <Setter Property="Visibility" Value="Visible"/>
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </TextBlock.Style>
+                </TextBlock>
+            </Grid>
+
+            <!-- Превью изображения -->
+            <Border Width="400"
+                    Height="400"
+                    Margin="0,0,0,20"
+                    BorderThickness="1"
+                    BorderBrush="Gray"
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Center"
+                    Visibility="Visible">
+
+                <Image x:Name="PerfumeImagePreview"
+                       Stretch="UniformToFill"
+                       HorizontalAlignment="Center"
+                       VerticalAlignment="Center"
+                       RenderOptions.BitmapScalingMode="HighQuality"
+                       SnapsToDevicePixels="True"
+                       UseLayoutRounding="True"
+                       Visibility="Collapsed"/>
+            </Border>
+
+            <!-- Кнопки -->
+            <Button Content="Выбрать изображение"
+                    Background="White"
+                    BorderThickness="2"
+                    Height="45"
+                    FontSize="16"
+                    Margin="0,0,0,15"
+                    Click="SelectImage_Click"/>
+
+            <Button Content="Сохранить парфюм"
+                    Height="45"
+                    FontSize="16"
+                    BorderThickness="2"
+                    Background="White"
+                    Click="Save_Click"/>
+
+        </StackPanel>
+    </ScrollViewer>
+</Page>

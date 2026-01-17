@@ -1,27 +1,40 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
+﻿using System.Windows;
+using Parfuholic.Pages;
 
 namespace Parfuholic
 {
-    /// <summary>
-    /// Логика взаимодействия для AdminWindow.xaml
-    /// </summary>
     public partial class AdminWindow : Window
     {
         public AdminWindow()
         {
             InitializeComponent();
+            AdminFrame.Navigate(new UsersAdminPage());
+        }
+
+        private void Users_Click(object sender, RoutedEventArgs e)
+        {
+            AdminFrame.Navigate(new UsersAdminPage());
+        }
+
+        private void Products_Click(object sender, RoutedEventArgs e)
+        {
+            AdminFrame.Navigate(new ManagePerfumesPage());
+        }
+
+        private void AddPerfume_Click(object sender, RoutedEventArgs e)
+        {
+            AdminFrame.Navigate(new AddPerfumePage());
+        }
+
+        private void Reports_Click(object sender, RoutedEventArgs e)
+        {
+            AdminFrame.Navigate(new ReportsPage());
+        }
+
+        private void Logout_Click(object sender, RoutedEventArgs e)
+        {
+            new NavigationWindow().Show();
+            Close();
         }
     }
 }

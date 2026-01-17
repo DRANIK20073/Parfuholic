@@ -21,6 +21,8 @@ namespace Parfuholic.Models
 
         public decimal Price { get; set; }
 
+        public decimal Quantity { get; set; }
+
         // из БД
         public byte[] ImageData { get; set; }
 

@@ -69,41 +69,53 @@ namespace Parfuholic
                 {
                     conn.Open();
 
-                    // Объединенный запрос для поиска пользователя/админа
-                    SqlCommand cmd = new SqlCommand(@"
-                SELECT 
-                    CASE 
-                        WHEN EXISTS (SELECT 1 FROM Admins WHERE Login = @login AND Password = @password) 
-                        THEN 'Admin'
-                        WHEN EXISTS (SELECT 1 FROM Users WHERE Login = @login AND Password = @password) 
-                        THEN 'User'
-                        ELSE 'NotFound'
-                    END AS UserType", conn);
+                    // ===== Проверяем админа =====
+                    SqlCommand adminCmd = new SqlCommand(@"
+                SELECT COUNT(*) 
+                FROM Admins 
+                WHERE Login = @login AND Password = @password", conn);
 
-                    cmd.Parameters.AddWithValue("@login", login);
-                    cmd.Parameters.AddWithValue("@password", password);
+                    adminCmd.Parameters.AddWithValue("@login", login);
+                    adminCmd.Parameters.AddWithValue("@password", password);
 
-                    string userType = cmd.ExecuteScalar()?.ToString();
-
-                    switch (userType)
+                    int adminCount = (int)adminCmd.ExecuteScalar();
+                    if (adminCount > 0)
                     {
-                        case "Admin":
-                            MessageBox.Show("Вход выполнен как администратор");
-                            AdminWindow adminWindow = new AdminWindow();
-                            adminWindow.Show();
-                            break;
-
-                        case "User":
-                            MessageBox.Show("Вход выполнен");
-                            UserMainWindow userWindow = new UserMainWindow();
-                            userWindow.Show();
-                            break;
-
-                        default:
-                            MessageBox.Show("Неверный логин или пароль");
-                            return;
+                        MessageBox.Show("Вход выполнен как администратор");
+                        AdminWindow adminWindow = new AdminWindow();
+                        adminWindow.Show();
+                        Window.GetWindow(this)?.Close();
+                        return;
                     }
 
+                    // ===== Проверяем пользователя =====
+                    SqlCommand userCmd = new SqlCommand(@"
+                SELECT IsBlocked
+                FROM Users
+                WHERE Login = @login AND Password = @password", conn);
+
+                    userCmd.Parameters.AddWithValue("@login", login);
+                    userCmd.Parameters.AddWithValue("@password", password);
+
+                    object result = userCmd.ExecuteScalar();
+
+                    if (result == null)
+                    {
+                        MessageBox.Show("Неверный логин или пароль");
+                        return;
+                    }
+
+                    bool isBlocked = (bool)result;
+                    if (isBlocked)
+                    {
+                        MessageBox.Show("Вход заблокирован. Обратитесь к администратору.");
+                        return;
+                    }
+
+                    // ===== Вход успешен =====
+                    MessageBox.Show("Вход выполнен");
+                    UserMainWindow userWindow = new UserMainWindow();
+                    userWindow.Show();
                     Window.GetWindow(this)?.Close();
                 }
             }
@@ -112,5 +124,6 @@ namespace Parfuholic
                 MessageBox.Show("Ошибка входа:\n" + ex.Message);
             }
         }
+
     }
 }

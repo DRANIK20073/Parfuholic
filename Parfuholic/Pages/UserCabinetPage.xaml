@@ -50,21 +50,25 @@
                        Margin="0,0,0,0"/>
 
             <Button x:Name="ProfileBtn"
+                    FocusVisualStyle="{x:Null}"
                     Content="Личные данные"
                     Style="{StaticResource ProfileMenuButton}"
                     Click="Profile_Click"/>
 
             <Button x:Name="OrdersBtn"
+                    FocusVisualStyle="{x:Null}"
                     Content="История заказов"
                     Style="{StaticResource ProfileMenuButton}"
                     Click="Orders_Click"/>
 
             <Button x:Name="FavoritesBtn"
                     Content="Избранное"
+                    FocusVisualStyle="{x:Null}"
                     Style="{StaticResource ProfileMenuButton}"
                     Click="Favorites_Click"/>
 
             <Button Content="Выйти"
+                    FocusVisualStyle="{x:Null}"
                     Style="{StaticResource ProfileMenuButton}"
                     Click="Logout_Click"/>
         </StackPanel>

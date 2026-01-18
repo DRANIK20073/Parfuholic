@@ -76,6 +76,9 @@
     <Compile Include="Pages\OrdersHistoryPage.xaml.cs">
       <DependentUpon>OrdersHistoryPage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Pages\PerfumePage.xaml.cs">
+      <DependentUpon>PerfumePage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Pages\ProfileDataPage.xaml.cs">
       <DependentUpon>ProfileDataPage.xaml</DependentUpon>
     </Compile>
@@ -134,6 +137,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Pages\OrdersHistoryPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Pages\PerfumePage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

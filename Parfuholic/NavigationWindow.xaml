@@ -56,10 +56,31 @@
                     <ColumnDefinition Width="Auto"/>
                 </Grid.ColumnDefinitions>
 
-                <TextBlock Text="PARFUHOLIC"
-                           FontSize="28"
-                           FontWeight="Bold"
-                           VerticalAlignment="Center"/>
+                <Button x:Name="LogoButton"
+                    Content="PARFUHOLIC"
+                    Background="Transparent"
+                    BorderThickness="0"
+                    FontSize="28"
+                    FontWeight="Bold"
+                    Cursor="Hand"
+                    FocusVisualStyle="{x:Null}"
+                    Click="LogoButton_Click">
+                    <Button.Style>
+                        <Style TargetType="Button">
+                            <Setter Property="Background" Value="Transparent"/>
+                            <Setter Property="BorderBrush" Value="Transparent"/>
+                            <Setter Property="BorderThickness" Value="0"/>
+                            <Setter Property="Template">
+                                <Setter.Value>
+                                    <ControlTemplate TargetType="Button">
+                                        <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                    </ControlTemplate>
+                                </Setter.Value>
+                            </Setter>
+                        </Style>
+                    </Button.Style>
+                </Button>
+
 
                 <Grid Grid.Column="1" Margin="40,0" VerticalAlignment="Center">
 
@@ -121,9 +142,10 @@
 
         <!-- CONTENT -->
         <Frame x:Name="CatalogFrame"
-       Grid.Row="2"
-       NavigationUIVisibility="Hidden"
-       Background="White"/>
+               Grid.Row="2"
+               NavigationUIVisibility="Hidden"
+               Background="White"
+               JournalOwnership="OwnsJournal"/>
 
         <!--Страница регистрации и логина-->
         <Frame x:Name="LoginPage"

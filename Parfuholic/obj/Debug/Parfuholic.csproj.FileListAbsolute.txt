@@ -74,3 +74,5 @@ D:\Others\Programming\Visual studio 2022\Parfuholic\Parfuholic\obj\Debug\Pages\M
 D:\Others\Programming\Visual studio 2022\Parfuholic\Parfuholic\obj\Debug\Pages\UsersAdminPage.g.cs
 D:\Others\Programming\Visual studio 2022\Parfuholic\Parfuholic\obj\Debug\Pages\ReportsPage.baml
 D:\Others\Programming\Visual studio 2022\Parfuholic\Parfuholic\obj\Debug\Pages\ReportsPage.g.cs
+D:\Others\Programming\Visual studio 2022\Parfuholic\Parfuholic\obj\Debug\Pages\PerfumePage.baml
+D:\Others\Programming\Visual studio 2022\Parfuholic\Parfuholic\obj\Debug\Pages\PerfumePage.g.cs

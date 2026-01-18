@@ -20,6 +20,7 @@
                             BorderThickness="1"
                             BorderBrush="#FFE0E0E0"
                             SnapsToDevicePixels="True"
+                            MouseLeftButtonUp="PerfumeCard_Click"
                             RenderTransformOrigin="0.5,0.5">
 
                         <!-- SCALE TRANSFORM -->

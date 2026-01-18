@@ -3,15 +3,21 @@ using System;
 using System.Collections.ObjectModel;
 using System.Data.SqlClient;
 using System.Diagnostics;
+using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Input;
 
 namespace Parfuholic.Pages
 {
     public partial class CatalogPage : Page
     {
-        public ObservableCollection<Perfume> Perfumes { get; set; } = new ObservableCollection<Perfume>();
+        public ObservableCollection<Perfume> Perfumes { get; set; }
+            = new ObservableCollection<Perfume>();
 
-        private string connectionString = @"Data Source=.\SQLEXPRESS;Initial Catalog=ParfuholicDB;Integrated Security=True";
+        private readonly string connectionString =
+            @"Data Source=.\SQLEXPRESS;Initial Catalog=ParfuholicDB;Integrated Security=True";
+
+        private bool _isNavigating = false;
 
         public CatalogPage()
         {
@@ -22,19 +28,20 @@ namespace Parfuholic.Pages
 
         private void LoadPerfumes()
         {
+            Perfumes.Clear();
+
             try
             {
-                using (SqlConnection conn = new SqlConnection(connectionString))
+                using (var conn = new SqlConnection(connectionString))
                 {
                     conn.Open();
 
-                    string query = @"
-                        SELECT Id, Name, ForWhom, AromaGroup, BaseNotes, MiddleNotes, TopNotes,
-                               Volume, Brand, Price, ImageData
-                        FROM dbo.Perfumes";
+                    var cmd = new SqlCommand(@"
+                        SELECT Id, Name, ForWhom, AromaGroup, BaseNotes,
+                               MiddleNotes, TopNotes, Volume, Brand, Price, ImageData
+                        FROM Perfumes", conn);
 
-                    using (SqlCommand cmd = new SqlCommand(query, conn))
-                    using (SqlDataReader reader = cmd.ExecuteReader())
+                    using (var reader = cmd.ExecuteReader())
                     {
                         while (reader.Read())
                         {
@@ -50,18 +57,42 @@ namespace Parfuholic.Pages
                                 Volume = reader["Volume"] as string,
                                 Brand = reader["Brand"] as string,
                                 Price = reader.GetDecimal(reader.GetOrdinal("Price")),
-                                ImageData = reader["ImageData"] == DBNull.Value ? null : (byte[])reader["ImageData"]
+                                ImageData = reader["ImageData"] == DBNull.Value
+                                    ? null
+                                    : (byte[])reader["ImageData"]
                             });
                         }
                     }
                 }
 
-                Debug.WriteLine($"Loaded {Perfumes.Count} perfumes");
+                Debug.WriteLine($"Загружено товаров: {Perfumes.Count}");
             }
-            catch (SqlException ex)
+            catch (Exception ex)
             {
-                Debug.WriteLine($"SQL Error: {ex.Message}");
+                MessageBox.Show(ex.Message, "Ошибка загрузки");
             }
+        }
+
+        private void PerfumeCard_Click(object sender, MouseButtonEventArgs e)
+        {
+            if (_isNavigating) return;
+            _isNavigating = true;
+
+            var border = sender as Border;
+            var perfume = border?.DataContext as Perfume;
+            if (perfume == null) return;
+
+            var nav = NavigationService;
+            if (nav != null)
+            {
+                nav.Navigate(new PerfumePage(perfume.Id, perfume.Volume));
+                nav.RemoveBackEntry(); // 🔥 УДАЛЯЕМ ПРЕДЫДУЩУЮ СТРАНИЦУ
+            }
+
+            Dispatcher.BeginInvoke(new Action(() =>
+            {
+                _isNavigating = false;
+            }), System.Windows.Threading.DispatcherPriority.Background);
         }
     }
 }

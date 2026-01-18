@@ -8,50 +8,53 @@
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
 
+        <!-- Заголовок -->
         <TextBlock Text="Управление парфюмами"
                    FontSize="28"
                    FontWeight="Bold"
                    Margin="0,0,0,20"/>
 
+        <!-- Таблица -->
         <DataGrid x:Name="PerfumesGrid"
                   Grid.Row="1"
                   AutoGenerateColumns="False"
                   CanUserAddRows="False"
                   IsReadOnly="False"
                   RowHeight="40"
-                  FontSize="14">
+                  FontSize="14"
+                  Margin="0,0,0,20">
 
             <DataGrid.Columns>
-
                 <DataGridTextColumn Header="Название" Binding="{Binding Name}" Width="200"/>
                 <DataGridTextColumn Header="Бренд" Binding="{Binding Brand}" Width="150"/>
                 <DataGridTextColumn Header="Для кого" Binding="{Binding ForWhom}" Width="120"/>
-                <DataGridTextColumn Header="Арома-группа" Binding="{Binding AromaGroup}" Width="180"/>
-
-                <DataGridTextColumn Header="Верхние ноты" Binding="{Binding TopNotes}" Width="200"/>
-                <DataGridTextColumn Header="Средние ноты" Binding="{Binding MiddleNotes}" Width="200"/>
-                <DataGridTextColumn Header="Базовые ноты" Binding="{Binding BaseNotes}" Width="200"/>
-
-                <DataGridTextColumn Header="Объём" Binding="{Binding Volume}" Width="100"/>
-                <DataGridTextColumn Header="Цена" Binding="{Binding Price}" Width="80"/>
-                <DataGridTextColumn Header="Кол-во" Binding="{Binding Quantity}" Width="80"/>
-
-                <!-- Кнопка сохранить -->
-                <DataGridTemplateColumn Header="Сохранить" Width="120">
-                    <DataGridTemplateColumn.CellTemplate>
-                        <DataTemplate>
-                            <Button Content="Сохранить"
-                                    Click="SaveRow_Click"
-                                    Height="30"/>
-                        </DataTemplate>
-                    </DataGridTemplateColumn.CellTemplate>
-                </DataGridTemplateColumn>
-
+                <DataGridTextColumn Header="Группа ароматов" Binding="{Binding AromaGroup}" Width="200"/>
+                <DataGridTextColumn Header="Верхние ноты" Binding="{Binding TopNotes}" Width="400"/>
+                <DataGridTextColumn Header="Средние ноты" Binding="{Binding MiddleNotes}" Width="400"/>
+                <DataGridTextColumn Header="Базовые ноты" Binding="{Binding BaseNotes}" Width="400"/>
+                <DataGridTextColumn Header="Объём" Binding="{Binding Volume}" Width="70"/>
+                <DataGridTextColumn Header="Цена" Binding="{Binding Price}" Width="70"/>
+                <DataGridTextColumn Header="Кол-во" Binding="{Binding Quantity}" Width="70"/>
+                <DataGridCheckBoxColumn Header="Новинка" Binding="{Binding IsNew}" Width="50"/>
+                <DataGridCheckBoxColumn Header="Скидка" Binding="{Binding IsDiscount}" Width="50"/>
+                <DataGridTextColumn Header="Процент скидки" Binding="{Binding DiscountPercent}" Width="50"/>
             </DataGrid.Columns>
 
         </DataGrid>
+
+        <!-- Кнопка сохранения -->
+        <Button Grid.Row="2"
+                Content="Сохранить изменения"
+                Height="45"
+                Width="220"
+                FontSize="16"
+                BorderThickness="2"
+                Background="White"
+                HorizontalAlignment="Left"
+                Click="Save_Click"/>
 
     </Grid>
 </Page>

@@ -1,6 +1,8 @@
 ﻿<Page x:Class="Parfuholic.Pages.PerfumePage"
       xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       Background="White">
 
     <Grid Margin="60,40,60,40">
@@ -9,13 +11,54 @@
             <ColumnDefinition Width="*" />
         </Grid.ColumnDefinitions>
 
+        <!-- КНОПКА НАЗАД -->
+        <Button x:Name="BackButton"
+                Content="←"
+                HorizontalAlignment="Left"
+                VerticalAlignment="Top"
+                Width="40"
+                Height="40"
+                FontWeight="Bold"
+                FontSize="20"
+                Background="Black"
+                Foreground="White"
+                BorderBrush="Black"
+                BorderThickness="1"
+                Click="BackButton_Click"
+                Grid.Column="0"
+                Cursor="Hand">
+            <Button.Template>
+                <ControlTemplate TargetType="Button">
+                    <Border x:Name="border"
+                    Background="{TemplateBinding Background}"
+                    BorderBrush="{TemplateBinding BorderBrush}"
+                    BorderThickness="{TemplateBinding BorderThickness}"
+                    CornerRadius="0">
+                        <ContentPresenter x:Name="contentPresenter"
+                                  HorizontalAlignment="Center"
+                                  VerticalAlignment="Center"
+                                  TextElement.Foreground="{TemplateBinding Foreground}"/>
+                    </Border>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter TargetName="border" Property="Background" Value="White"/>
+                            <Setter TargetName="contentPresenter" Property="TextElement.Foreground" Value="Black"/>
+                        </Trigger>
+                        <Trigger Property="IsPressed" Value="True">
+                            <Setter TargetName="border" Property="Background" Value="#F0F0F0"/>
+                            <Setter TargetName="contentPresenter" Property="TextElement.Foreground" Value="Black"/>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Button.Template>
+        </Button>
+
         <!-- ЛЕВАЯ ЧАСТЬ — ФОТО -->
-        <Grid>
+        <Grid Margin="50,0,50,0">
             <Image x:Name="PerfumeImage"
                    Stretch="Uniform"
                    HorizontalAlignment="Center"
-                   VerticalAlignment="Center"
-                   Margin="0,0,50,0"/>
+                   VerticalAlignment="Center"/>
         </Grid>
 
         <!-- ПРАВАЯ ЧАСТЬ — ИНФОРМАЦИЯ -->
@@ -27,7 +70,7 @@
                 <TextBlock Text="ПАРФЮМЕРНАЯ ВОДА"
                            Foreground="Gray"
                            FontSize="12"
-                           Margin="0,0,0,10"/>
+                           Margin="0,7,0,10"/>
 
                 <TextBlock x:Name="NameText"
                            FontSize="32"
@@ -39,29 +82,131 @@
                            Foreground="Gray"
                            Margin="0,5,0,20"/>
 
-                <!-- Цена -->
-                <TextBlock x:Name="PriceText"
-                           FontSize="26"
-                           FontWeight="SemiBold"
-                           Margin="0,20,0,20"/>
+                <!-- Блок с ценами на одном уровне -->
+                <Grid Margin="0,20,0,20">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="20"/>
+                        <ColumnDefinition Width="Auto"/>
+                    </Grid.ColumnDefinitions>
 
-                <!-- Кнопки "Добавить в корзину" и "+" -->
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+
+                    <!-- Новая цена (слева) -->
+                    <StackPanel Grid.Column="0">
+                        <TextBlock x:Name="PriceText"
+                                   FontSize="30"
+                                   FontWeight="Bold"
+                                   Foreground="#000000"/>
+
+                        <!-- Подпись под новой ценой -->
+                        <TextBlock x:Name="DiscountLabel"
+                                   Text="со скидкой 0%"
+                                   FontSize="12"
+                                   Foreground="#000000"
+                                   Margin="0,2,0,0"/>
+                    </StackPanel>
+
+                    <!-- Старая цена (справа) -->
+                    <StackPanel Grid.Column="2">
+                        <TextBlock x:Name="OldPriceText"
+                                   FontSize="30"
+                                   FontWeight="Bold"
+                                   Foreground="Gray"
+                                   TextDecorations="Strikethrough"
+                                   Visibility="Collapsed"/>
+
+                        <!-- Подпись под старой ценой -->
+                        <TextBlock x:Name="OldPriceLabel"
+                                   Text="без скидки"
+                                   FontSize="12"
+                                   Foreground="Gray"
+                                   Margin="0,2,0,0"
+                                   Visibility="Collapsed"/>
+                    </StackPanel>
+                </Grid>
+
+                <!-- Кнопки "Добавить в корзину" и "Добавить в избранное" -->
                 <StackPanel Orientation="Horizontal" Margin="0,0,0,10">
-                    <Button Content="ДОБАВИТЬ В КОРЗИНУ"
+                    <!-- Кнопка "Добавить в корзину" -->
+                    <Button x:Name="AddToCartButton"
+                            Content="ДОБАВИТЬ В КОРЗИНУ"
                             Height="50"
                             Width="250"
-                            Background="Black"
-                            Foreground="White"
+                            Background="#000000"
+                            Foreground="#FFFFFF"
                             FontSize="16"
-                            BorderThickness="0"/>
-                    <Button Content="+"
+                            BorderBrush="#000000"
+                            BorderThickness="1"
+                            Cursor="Hand">
+                        <Button.Template>
+                            <ControlTemplate TargetType="Button">
+                                <Border x:Name="cartBorder"
+                                        Background="{TemplateBinding Background}"
+                                        BorderBrush="{TemplateBinding BorderBrush}"
+                                        BorderThickness="{TemplateBinding BorderThickness}">
+                                    <ContentPresenter x:Name="cartContent"
+                                      HorizontalAlignment="Center"
+                                      VerticalAlignment="Center"/>
+                                </Border>
+                                <ControlTemplate.Triggers>
+                                    <Trigger Property="IsMouseOver" Value="True">
+                                        <Setter TargetName="cartBorder" Property="Background" Value="White"/>
+                                        <Setter TargetName="cartBorder" Property="BorderBrush" Value="Black"/>
+                                        <Setter TargetName="cartContent" Property="TextElement.Foreground" Value="Black"/>
+                                    </Trigger>
+                                    <Trigger Property="IsPressed" Value="True">
+                                        <Setter TargetName="cartBorder" Property="Background" Value="#F0F0F0"/>
+                                        <Setter TargetName="cartBorder" Property="BorderBrush" Value="Black"/>
+                                        <Setter TargetName="cartContent" Property="TextElement.Foreground" Value="Black"/>
+                                    </Trigger>
+                                </ControlTemplate.Triggers>
+                            </ControlTemplate>
+                        </Button.Template>
+                    </Button>
+
+                    <!-- Кнопка "Добавить в избранное" -->
+                    <Button x:Name="AddToFavoritesButton"
+                            Content="+"
                             Height="50"
                             Width="50"
                             Background="Black"
                             Foreground="White"
-                            FontSize="16"
-                            BorderThickness="0"
-                            Margin="10,0,0,0"/>
+                            FontSize="24"
+                            FontWeight="Bold"
+                            BorderBrush="Black"
+                            BorderThickness="1"
+                            Margin="10,0,0,0"
+                            Cursor="Hand">
+                        <Button.Template>
+                            <ControlTemplate TargetType="Button">
+                                <Border x:Name="favBorder"
+                        Background="{TemplateBinding Background}"
+                        BorderBrush="{TemplateBinding BorderBrush}"
+                        BorderThickness="{TemplateBinding BorderThickness}">
+                                    <ContentPresenter x:Name="favContent"
+                                      HorizontalAlignment="Center"
+                                      VerticalAlignment="Center"
+                                      TextElement.Foreground="{TemplateBinding Foreground}"/>
+                                </Border>
+                                <ControlTemplate.Triggers>
+                                    <Trigger Property="IsMouseOver" Value="True">
+                                        <Setter TargetName="favBorder" Property="Background" Value="White"/>
+                                        <Setter TargetName="favBorder" Property="BorderBrush" Value="Black"/>
+                                        <Setter TargetName="favContent" Property="TextElement.Foreground" Value="Black"/>
+                                    </Trigger>
+                                    <Trigger Property="IsPressed" Value="True">
+                                        <Setter TargetName="favBorder" Property="Background" Value="#F0F0F0"/>
+                                        <Setter TargetName="favBorder" Property="BorderBrush" Value="Black"/>
+                                        <Setter TargetName="favContent" Property="TextElement.Foreground" Value="Black"/>
+                                    </Trigger>
+                                </ControlTemplate.Triggers>
+                            </ControlTemplate>
+                        </Button.Template>
+                    </Button>
                 </StackPanel>
 
                 <!-- Динамические кнопки объёмов -->

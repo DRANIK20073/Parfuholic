@@ -1,45 +1,80 @@
 ﻿using Parfuholic.Models;
 using System;
 using System.Collections.ObjectModel;
+using System.ComponentModel;
 using System.Data.SqlClient;
-using System.Diagnostics;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
+using System.Windows.Threading;
 
 namespace Parfuholic.Pages
 {
-    public partial class CatalogPage : Page
+    public partial class CatalogPage : Page, INotifyPropertyChanged
     {
-        public ObservableCollection<Perfume> Perfumes { get; set; }
-            = new ObservableCollection<Perfume>();
+        public ObservableCollection<Perfume> Perfumes { get; set; } = new ObservableCollection<Perfume>();
 
         private readonly string connectionString =
             @"Data Source=.\SQLEXPRESS;Initial Catalog=ParfuholicDB;Integrated Security=True";
 
+        private string _category;
         private bool _isNavigating = false;
 
-        public CatalogPage()
+        private bool _hasPerfumes;
+        public bool HasPerfumes
+        {
+            get => _hasPerfumes;
+            set
+            {
+                if (_hasPerfumes != value)
+                {
+                    _hasPerfumes = value;
+                    OnPropertyChanged(nameof(HasPerfumes));
+                    OnPropertyChanged(nameof(HasNoPerfumes));
+                }
+            }
+        }
+
+        public bool HasNoPerfumes => !HasPerfumes;
+
+        public CatalogPage(string category = "All")
         {
             InitializeComponent();
             DataContext = this;
-            LoadPerfumes();
+            _category = category;
+            LoadPerfumes(category);
         }
 
-        private void LoadPerfumes()
+        public event PropertyChangedEventHandler PropertyChanged;
+        private void OnPropertyChanged(string propertyName) =>
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+
+        private void LoadPerfumes(string category)
         {
             Perfumes.Clear();
 
-            try
+            using (var conn = new SqlConnection(connectionString))
             {
-                using (var conn = new SqlConnection(connectionString))
-                {
-                    conn.Open();
+                conn.Open();
+                string sql = @"SELECT Id, Name, ForWhom, AromaGroup, BaseNotes,
+                                      MiddleNotes, TopNotes, Volume, Brand, Price, ImageData, Quantity, IsNew, DiscountPercent
+                               FROM Perfumes";
 
-                    var cmd = new SqlCommand(@"
-                        SELECT Id, Name, ForWhom, AromaGroup, BaseNotes,
-                               MiddleNotes, TopNotes, Volume, Brand, Price, ImageData
-                        FROM Perfumes", conn);
+                if (category == "New")
+                    sql += " WHERE IsNew = 1";
+                else if (category == "Discount")
+                    sql += " WHERE DiscountPercent > 0";
+                else if (category == "для женщин")
+                    sql += " WHERE ForWhom = @Category OR ForWhom = 'унисекс'";
+                else if (category == "для мужчин")
+                    sql += " WHERE ForWhom = @Category OR ForWhom = 'унисекс'";
+                else if (category == "унисекс")
+                    sql += " WHERE ForWhom = 'унисекс'";
+
+                using (var cmd = new SqlCommand(sql, conn))
+                {
+                    if (category == "для женщин") cmd.Parameters.AddWithValue("@Category", "для женщин");
+                    if (category == "для мужчин") cmd.Parameters.AddWithValue("@Category", "для мужчин");
 
                     using (var reader = cmd.ExecuteReader())
                     {
@@ -57,20 +92,17 @@ namespace Parfuholic.Pages
                                 Volume = reader["Volume"] as string,
                                 Brand = reader["Brand"] as string,
                                 Price = reader.GetDecimal(reader.GetOrdinal("Price")),
-                                ImageData = reader["ImageData"] == DBNull.Value
-                                    ? null
-                                    : (byte[])reader["ImageData"]
+                                Quantity = reader.GetInt32(reader.GetOrdinal("Quantity")),
+                                ImageData = reader["ImageData"] == DBNull.Value ? null : (byte[])reader["ImageData"],
+                                IsNew = Convert.ToBoolean(reader["IsNew"]),
+                                DiscountPercent = reader["DiscountPercent"] != DBNull.Value ? Convert.ToInt32(reader["DiscountPercent"]) : 0
                             });
                         }
                     }
                 }
+            }
 
-                Debug.WriteLine($"Загружено товаров: {Perfumes.Count}");
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message, "Ошибка загрузки");
-            }
+            HasPerfumes = Perfumes.Count > 0;
         }
 
         private void PerfumeCard_Click(object sender, MouseButtonEventArgs e)
@@ -78,21 +110,14 @@ namespace Parfuholic.Pages
             if (_isNavigating) return;
             _isNavigating = true;
 
-            var border = sender as Border;
-            var perfume = border?.DataContext as Perfume;
-            if (perfume == null) return;
-
-            var nav = NavigationService;
-            if (nav != null)
+            if (sender is Border border && border.DataContext is Perfume perfume)
             {
-                nav.Navigate(new PerfumePage(perfume.Id, perfume.Volume));
-                nav.RemoveBackEntry(); // 🔥 УДАЛЯЕМ ПРЕДЫДУЩУЮ СТРАНИЦУ
+                NavigationService?.Navigate(new PerfumePage(perfume.Id, perfume.Volume));
+                NavigationService?.RemoveBackEntry();
             }
 
-            Dispatcher.BeginInvoke(new Action(() =>
-            {
-                _isNavigating = false;
-            }), System.Windows.Threading.DispatcherPriority.Background);
+            Dispatcher.BeginInvoke(new Action(() => _isNavigating = false),
+                                   DispatcherPriority.Background);
         }
     }
 }

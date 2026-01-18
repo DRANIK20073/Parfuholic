@@ -132,11 +132,35 @@
         <!-- CATEGORIES -->
         <Border Grid.Row="1" Background="White" Padding="15">
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
-                <Button Content="Женские" Style="{StaticResource CategoryButton}"/>
-                <Button Content="Мужские" Style="{StaticResource CategoryButton}"/>
-                <Button Content="Унисекс" Style="{StaticResource CategoryButton}"/>
-                <Button Content="Новинки" Style="{StaticResource CategoryButton}"/>
-                <Button Content="Скидки" Style="{StaticResource CategoryButton}"/>
+                <Button Content="Все"
+                        Style="{StaticResource CategoryButton}"
+                        Tag="All"
+                        Click="Category_Click"/>
+
+                <Button Content="Женские"
+                        Style="{StaticResource CategoryButton}"
+                        Tag="для женщин"
+                        Click="Category_Click"/>
+
+                <Button Content="Мужские"
+                        Style="{StaticResource CategoryButton}"
+                        Tag="для мужчин"
+                        Click="Category_Click"/>
+
+                <Button Content="Унисекс"
+                        Style="{StaticResource CategoryButton}"
+                        Tag="унисекс"
+                        Click="Category_Click"/>
+
+                <Button Content="Новинки"
+                        Style="{StaticResource CategoryButton}"
+                        Tag="New"
+                        Click="Category_Click"/>
+
+                <Button Content="Скидки"
+                        Style="{StaticResource CategoryButton}"
+                        Tag="Discount"
+                        Click="Category_Click"/>
             </StackPanel>
         </Border>
 

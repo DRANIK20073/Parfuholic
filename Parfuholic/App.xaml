@@ -4,6 +4,6 @@
              xmlns:local="clr-namespace:Parfuholic"
              StartupUri="NavigationWindow.xaml">
     <Application.Resources>
-        
+
     </Application.Resources>
 </Application>

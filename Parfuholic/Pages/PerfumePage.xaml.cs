@@ -13,34 +13,28 @@ namespace Parfuholic.Pages
     public partial class PerfumePage : Page
     {
         private Perfume selectedVariant;
-        private List<Perfume> variants; // все варианты одного парфюма (разные объёмы)
-        private string initialVolume;    // объем, на который пользователь перешёл
+        private List<Perfume> variants;
+        private string initialVolume;
 
         public PerfumePage(int perfumeId, string selectedVolume)
         {
             InitializeComponent();
-
             initialVolume = selectedVolume;
 
-            LoadPerfumeVariants(perfumeId); // загружаем все объёмы одного парфюма
+            LoadPerfumeVariants(perfumeId);
 
             if (variants.Count > 0)
             {
-                // выбираем вариант по переданному объему, иначе первый
                 selectedVariant = variants.Find(v => v.Volume == initialVolume) ?? variants[0];
-
                 LoadData(selectedVariant);
                 CreateVolumeButtons();
             }
         }
 
-        // ===== Загрузка данных выбранного варианта =====
         private void LoadData(Perfume p)
         {
             NameText.Text = p.Name;
             BrandText.Text = p.Brand;
-            PriceText.Text = $"{p.Price} BYN";
-
             ForWhomText.Text = p.ForWhom;
             AromaGroupText.Text = p.AromaGroup;
             BaseNotesText.Text = p.BaseNotes;
@@ -48,6 +42,50 @@ namespace Parfuholic.Pages
             TopNotesText.Text = p.TopNotes;
             VolumeText.Text = p.Volume;
 
+            // Скидка
+            if (p.IsDiscount && p.DiscountPercent > 0)
+            {
+                // Новая цена со скидкой (слева)
+                decimal discountedPrice = Math.Round(p.Price * (100 - p.DiscountPercent) / 100, 2);
+                PriceText.Text = $"{discountedPrice:F2} BYN";
+                PriceText.Foreground = Brushes.Black;
+                PriceText.FontSize = 28;
+                PriceText.FontWeight = FontWeights.Bold;
+
+                // Подпись под новой ценой
+                DiscountLabel.Text = $"со скидкой {p.DiscountPercent}%";
+                DiscountLabel.Visibility = Visibility.Visible;
+                DiscountLabel.Foreground = Brushes.Black;
+                DiscountLabel.FontSize = 14;
+
+                // Старая цена
+                OldPriceText.Text = $"{p.Price:F2} BYN";
+                OldPriceText.Visibility = Visibility.Visible;
+                OldPriceText.Foreground = Brushes.Gray;
+                OldPriceText.FontSize = 28;
+                OldPriceText.FontWeight = FontWeights.Bold;
+                OldPriceText.TextDecorations = TextDecorations.Strikethrough;
+
+                // Подпись под старой ценой
+                OldPriceLabel.Visibility = Visibility.Visible;
+                OldPriceLabel.Foreground = Brushes.Gray;
+                OldPriceLabel.FontSize = 14;
+            }
+            else
+            {
+                // Нет скидки - показываем только обычную цену слева
+                PriceText.Text = $"{p.Price:F2} BYN";
+                PriceText.Foreground = Brushes.Black;
+                PriceText.FontSize = 28;
+                PriceText.FontWeight = FontWeights.Bold;
+
+                // Скрываем подписи и старую цену справа
+                DiscountLabel.Visibility = Visibility.Collapsed;
+                OldPriceText.Visibility = Visibility.Collapsed;
+                OldPriceLabel.Visibility = Visibility.Collapsed;
+            }
+
+            // ===== Изображение =====
             if (p.ImageData != null)
             {
                 BitmapImage image = new BitmapImage();
@@ -63,7 +101,6 @@ namespace Parfuholic.Pages
             }
         }
 
-        // ===== Загрузка всех вариантов одного парфюма =====
         private void LoadPerfumeVariants(int perfumeId)
         {
             variants = new List<Perfume>();
@@ -73,9 +110,9 @@ namespace Parfuholic.Pages
                 conn.Open();
 
                 SqlCommand cmd = new SqlCommand(@"
-            SELECT * FROM Perfumes
-            WHERE Id = @id OR Name = (SELECT Name FROM Perfumes WHERE Id = @id)
-        ", conn);
+                    SELECT * FROM Perfumes
+                    WHERE Name = (SELECT Name FROM Perfumes WHERE Id = @id)
+                ", conn);
 
                 cmd.Parameters.AddWithValue("@id", perfumeId);
 
@@ -94,43 +131,46 @@ namespace Parfuholic.Pages
                         TopNotes = reader["TopNotes"].ToString(),
                         Volume = reader["Volume"].ToString(),
                         Price = Convert.ToDecimal(reader["Price"]),
-                        Quantity = Convert.ToDecimal(reader["Quantity"]),
-                        ImageData = reader["ImageData"] as byte[]
+                        Quantity = Convert.ToInt32(reader["Quantity"]),
+                        ImageData = reader["ImageData"] as byte[],
+                        IsDiscount = Convert.ToBoolean(reader["IsDiscount"])
                     };
+
+                    // Загружаем DiscountPercent
+                    object discountPercentValue = reader["DiscountPercent"];
+                    if (discountPercentValue != DBNull.Value && discountPercentValue != null)
+                    {
+                        if (discountPercentValue is decimal)
+                            p.DiscountPercent = Convert.ToInt32((decimal)discountPercentValue);
+                        else if (discountPercentValue is int)
+                            p.DiscountPercent = (int)discountPercentValue;
+                        else
+                            p.DiscountPercent = Convert.ToInt32(discountPercentValue);
+                    }
+                    else
+                    {
+                        p.DiscountPercent = 0;
+                    }
 
                     variants.Add(p);
                 }
             }
 
-            // ===== Сортировка по числу объема в мл =====
-            variants.Sort((a, b) =>
-            {
-                int volA = ExtractVolume(a.Volume);
-                int volB = ExtractVolume(b.Volume);
-                return volA.CompareTo(volB);
-            });
+            variants.Sort((a, b) => ExtractVolume(a.Volume).CompareTo(ExtractVolume(b.Volume)));
         }
 
-        // ===== Вспомогательный метод: извлекает число из строки объема =====
         private int ExtractVolume(string volume)
         {
-            if (string.IsNullOrEmpty(volume))
-                return 0;
-
-            // ищем цифры в начале строки
+            if (string.IsNullOrEmpty(volume)) return 0;
             string digits = "";
             foreach (char c in volume)
             {
-                if (char.IsDigit(c))
-                    digits += c;
-                else
-                    break;
+                if (char.IsDigit(c)) digits += c;
+                else break;
             }
-
             return int.TryParse(digits, out int val) ? val : 0;
         }
 
-        // ===== Создание кнопок объёмов =====
         private void CreateVolumeButtons()
         {
             VolumeButtonsPanel.Children.Clear();
@@ -146,7 +186,7 @@ namespace Parfuholic.Pages
                     BorderBrush = variant == selectedVariant ? Brushes.Black : (Brush)new BrushConverter().ConvertFromString("#B3B3B3"),
                     Background = Brushes.White,
                     Cursor = System.Windows.Input.Cursors.Hand,
-                    CornerRadius = new CornerRadius(0) // квадратные кнопки
+                    CornerRadius = new CornerRadius(0)
                 };
 
                 TextBlock text = new TextBlock
@@ -161,11 +201,9 @@ namespace Parfuholic.Pages
 
                 border.Child = text;
 
-                // отключаем стандартное выделение при наведении
                 border.MouseEnter += (s, e) => { border.Background = Brushes.White; };
                 border.MouseLeave += (s, e) => { border.Background = Brushes.White; };
 
-                // клик по Border
                 border.MouseLeftButtonUp += (s, e) =>
                 {
                     selectedVariant = variant;
@@ -177,18 +215,23 @@ namespace Parfuholic.Pages
             }
         }
 
-        // ===== Обновление подсветки выбранного варианта =====
         private void UpdateVolumeButtons()
         {
             for (int i = 0; i < VolumeButtonsPanel.Children.Count; i++)
             {
                 Border border = VolumeButtonsPanel.Children[i] as Border;
                 Perfume variant = variants[i];
-
                 border.BorderBrush = variant == selectedVariant
                     ? Brushes.Black
                     : (Brush)new BrushConverter().ConvertFromString("#B3B3B3");
             }
+        }
+
+        // ===== Кнопка назад =====
+        private void BackButton_Click(object sender, RoutedEventArgs e)
+        {
+            if (NavigationService.CanGoBack)
+                NavigationService.GoBack();
         }
     }
 }

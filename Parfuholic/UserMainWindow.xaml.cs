@@ -1,7 +1,7 @@
 ﻿using Parfuholic.Pages;
 using System;
 using System.Windows;
-using System.Windows.Input;
+using System.Windows.Controls;
 using System.Windows.Threading;
 
 namespace Parfuholic
@@ -11,15 +11,17 @@ namespace Parfuholic
         private bool _logoLocked;
         private readonly TimeSpan LogoClickDelay = TimeSpan.FromMilliseconds(400);
 
+        private string _currentCategory = "All";
+
         public UserMainWindow()
         {
             InitializeComponent();
 
-            // ✅ Загружаем каталог ОДИН РАЗ
-            CatalogFrame.Navigate(new CatalogPage());
+            // ✅ По умолчанию открываем "Все"
+            OpenCatalog("All");
         }
 
-        // 🏠 ЛОГО → В КАТАЛОГ
+        // 🏠 ЛОГО → ВСЕ ПАРФЮМЫ
         private void LogoButton_Click(object sender, RoutedEventArgs e)
         {
             if (_logoLocked)
@@ -27,7 +29,7 @@ namespace Parfuholic
 
             _logoLocked = true;
 
-            OpenCatalog();
+            OpenCatalog("All");
 
             DispatcherTimer timer = new DispatcherTimer
             {
@@ -43,23 +45,25 @@ namespace Parfuholic
             timer.Start();
         }
 
-        private void OpenCatalog()
+        // 📦 ОТКРЫТИЕ КАТАЛОГА
+        private void OpenCatalog(string category)
         {
-            // ❗ если каталог уже открыт — просто выходим
-            if (CatalogFrame.Content is CatalogPage)
+            // ❗ если уже открыта эта же категория — ничего не делаем
+            if (CatalogFrame.Content is CatalogPage && _currentCategory == category)
                 return;
 
-            CatalogFrame.Navigate(new CatalogPage());
+            _currentCategory = category;
 
-            // чистим историю, чтобы Back не ломал логику
+            CatalogFrame.Navigate(new CatalogPage(category));
+
+            // чистим историю
             while (CatalogFrame.CanGoBack)
                 CatalogFrame.RemoveBackEntry();
         }
 
-        // 👤 КАБИНЕТ
+        // 👤 ЛИЧНЫЙ КАБИНЕТ
         private void AccountButton_Click(object sender, RoutedEventArgs e)
         {
-            // если кабинет уже открыт — ничего не делаем
             if (CatalogFrame.Content is UserCabinetPage)
                 return;
 
@@ -67,6 +71,16 @@ namespace Parfuholic
 
             while (CatalogFrame.CanGoBack)
                 CatalogFrame.RemoveBackEntry();
+        }
+
+        // 🗂 ВЫБОР КАТЕГОРИИ
+        private void Category_Click(object sender, RoutedEventArgs e)
+        {
+            if (sender is Button btn && btn.Tag != null)
+            {
+                string category = btn.Tag.ToString();
+                OpenCatalog(category);
+            }
         }
 
         // 🚪 ВЫХОД

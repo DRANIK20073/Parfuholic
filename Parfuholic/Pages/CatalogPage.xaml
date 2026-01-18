@@ -4,126 +4,198 @@
       xmlns:models="clr-namespace:Parfuholic.Models"
       Background="#FFF5F5F5">
 
-    <ScrollViewer VerticalScrollBarVisibility="Auto">
-        <ItemsControl ItemsSource="{Binding Perfumes}">
-            <ItemsControl.ItemsPanel>
-                <ItemsPanelTemplate>
-                    <WrapPanel HorizontalAlignment="Center"/>
-                </ItemsPanelTemplate>
-            </ItemsControl.ItemsPanel>
+    <Grid>
+        <!-- Сообщение при отсутствии парфюмов -->
+        <TextBlock Text="Парфюмов в этой категории пока нет"
+                   HorizontalAlignment="Center"
+                   VerticalAlignment="Center"
+                   FontSize="24"
+                   FontWeight="SemiBold"
+                   Foreground="Gray">
+            <TextBlock.Style>
+                <Style TargetType="TextBlock">
+                    <Setter Property="Visibility" Value="Collapsed"/>
+                    <Style.Triggers>
+                        <DataTrigger Binding="{Binding HasNoPerfumes}" Value="True">
+                            <Setter Property="Visibility" Value="Visible"/>
+                        </DataTrigger>
+                    </Style.Triggers>
+                </Style>
+            </TextBlock.Style>
+        </TextBlock>
 
-            <ItemsControl.ItemTemplate>
-                <DataTemplate DataType="{x:Type models:Perfume}">
-                    <Border Width="400"
-                            Margin="15"
-                            Background="White"
-                            BorderThickness="1"
-                            BorderBrush="#FFE0E0E0"
-                            SnapsToDevicePixels="True"
-                            MouseLeftButtonUp="PerfumeCard_Click"
-                            RenderTransformOrigin="0.5,0.5">
+        <!-- Список парфюмов -->
+        <ScrollViewer x:Name="PerfumesScrollViewer"
+                      VerticalScrollBarVisibility="Auto">
+            <ScrollViewer.Style>
+                <Style TargetType="ScrollViewer">
+                    <Setter Property="Visibility" Value="Visible"/>
+                    <Style.Triggers>
+                        <DataTrigger Binding="{Binding HasNoPerfumes}" Value="True">
+                            <Setter Property="Visibility" Value="Collapsed"/>
+                        </DataTrigger>
+                    </Style.Triggers>
+                </Style>
+            </ScrollViewer.Style>
 
-                        <!-- SCALE TRANSFORM -->
-                        <Border.RenderTransform>
-                            <ScaleTransform ScaleX="1" ScaleY="1"/>
-                        </Border.RenderTransform>
+            <ItemsControl ItemsSource="{Binding Perfumes}">
+                <ItemsControl.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <WrapPanel HorizontalAlignment="Center"/>
+                    </ItemsPanelTemplate>
+                </ItemsControl.ItemsPanel>
 
-                        <!-- SHADOW -->
-                        <Border.Effect>
-                            <DropShadowEffect BlurRadius="12"
-                                              ShadowDepth="2"
-                                              Opacity="0.25"/>
-                        </Border.Effect>
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate DataType="{x:Type models:Perfume}">
+                        <Border Width="400"
+                                Margin="15"
+                                Background="White"
+                                BorderThickness="1"
+                                BorderBrush="#FFE0E0E0"
+                                SnapsToDevicePixels="True"
+                                MouseLeftButtonUp="PerfumeCard_Click"
+                                RenderTransformOrigin="0.5,0.5">
 
-                        <!-- HOVER STYLE -->
-                        <Border.Style>
-                            <Style TargetType="Border">
-                                <Style.Triggers>
+                            <!-- SCALE TRANSFORM -->
+                            <Border.RenderTransform>
+                                <ScaleTransform ScaleX="1" ScaleY="1"/>
+                            </Border.RenderTransform>
 
-                                    <!-- Mouse Over -->
-                                    <Trigger Property="IsMouseOver" Value="True">
-                                        <Trigger.EnterActions>
-                                            <BeginStoryboard>
-                                                <Storyboard>
-                                                    <DoubleAnimation Storyboard.TargetProperty="RenderTransform.ScaleX"
-                                                                     To="1.05"
-                                                                     Duration="0:0:0.15"/>
-                                                    <DoubleAnimation Storyboard.TargetProperty="RenderTransform.ScaleY"
-                                                                     To="1.05"
-                                                                     Duration="0:0:0.15"/>
-                                                </Storyboard>
-                                            </BeginStoryboard>
-                                        </Trigger.EnterActions>
+                            <!-- SHADOW -->
+                            <Border.Effect>
+                                <DropShadowEffect BlurRadius="12"
+                                                  ShadowDepth="2"
+                                                  Opacity="0.25"/>
+                            </Border.Effect>
 
-                                        <Trigger.ExitActions>
-                                            <BeginStoryboard>
-                                                <Storyboard>
-                                                    <DoubleAnimation Storyboard.TargetProperty="RenderTransform.ScaleX"
-                                                                     To="1"
-                                                                     Duration="0:0:0.15"/>
-                                                    <DoubleAnimation Storyboard.TargetProperty="RenderTransform.ScaleY"
-                                                                     To="1"
-                                                                     Duration="0:0:0.15"/>
-                                                </Storyboard>
-                                            </BeginStoryboard>
-                                        </Trigger.ExitActions>
+                            <!-- HOVER STYLE -->
+                            <Border.Style>
+                                <Style TargetType="Border">
+                                    <Style.Triggers>
+                                        <!-- Mouse Over -->
+                                        <Trigger Property="IsMouseOver" Value="True">
+                                            <Trigger.EnterActions>
+                                                <BeginStoryboard>
+                                                    <Storyboard>
+                                                        <DoubleAnimation Storyboard.TargetProperty="RenderTransform.ScaleX"
+                                                                         To="1.05"
+                                                                         Duration="0:0:0.15"/>
+                                                        <DoubleAnimation Storyboard.TargetProperty="RenderTransform.ScaleY"
+                                                                         To="1.05"
+                                                                         Duration="0:0:0.15"/>
+                                                    </Storyboard>
+                                                </BeginStoryboard>
+                                            </Trigger.EnterActions>
 
-                                        <Setter Property="BorderBrush" Value="#FFB5B5B5"/>
-                                    </Trigger>
+                                            <Trigger.ExitActions>
+                                                <BeginStoryboard>
+                                                    <Storyboard>
+                                                        <DoubleAnimation Storyboard.TargetProperty="RenderTransform.ScaleX"
+                                                                         To="1"
+                                                                         Duration="0:0:0.15"/>
+                                                        <DoubleAnimation Storyboard.TargetProperty="RenderTransform.ScaleY"
+                                                                         To="1"
+                                                                         Duration="0:0:0.15"/>
+                                                    </Storyboard>
+                                                </BeginStoryboard>
+                                            </Trigger.ExitActions>
 
-                                </Style.Triggers>
-                            </Style>
-                        </Border.Style>
+                                            <Setter Property="BorderBrush" Value="#FFB5B5B5"/>
+                                        </Trigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </Border.Style>
 
-                        <!-- CONTENT -->
-                        <StackPanel>
+                            <!-- CONTENT -->
+                            <StackPanel>
+                                <!-- IMAGE -->
+                                <Border Height="400"
+                                        SnapsToDevicePixels="True"
+                                        Background="#FFF0F0F0"
+                                        Padding="10">
 
-                            <!-- IMAGE -->
-                            <!-- IMAGE -->
-                            <Border Height="400"
-                                    SnapsToDevicePixels="True"
-                                    Background="#FFF0F0F0"
-                                    Padding="10">
+                                    <Image Source="{Binding Image}"
+                                           Stretch="UniformToFill"
+                                           HorizontalAlignment="Center"
+                                           VerticalAlignment="Center"
+                                           RenderOptions.BitmapScalingMode="HighQuality"
+                                           UseLayoutRounding="True"
+                                           SnapsToDevicePixels="True"
+                                           RenderOptions.EdgeMode="Aliased"/>
+                                </Border>
 
-                                <Image Source="{Binding Image}"
-                                       Stretch="UniformToFill"
-                                       HorizontalAlignment="Center"
-                                       VerticalAlignment="Center"
-                                       RenderOptions.BitmapScalingMode="HighQuality"
-                                       SnapsToDevicePixels="True"
-                                       UseLayoutRounding="True"/>
-                            </Border>
+                                <!-- INFO -->
+                                <StackPanel Margin="15">
+                                    <TextBlock Text="{Binding Brand}"
+                                               FontSize="14"
+                                               FontWeight="SemiBold"/>
 
-                            <!-- INFO -->
-                            <StackPanel Margin="15">
-                                <TextBlock Text="{Binding Brand}"
-                                           FontSize="14"
-                                           FontWeight="SemiBold"/>
+                                    <TextBlock Text="{Binding Name}"
+                                               FontSize="18"
+                                               FontWeight="Bold"
+                                               Margin="0,2,0,0"/>
 
-                                <TextBlock Text="{Binding Name}"
-                                           FontSize="18"
-                                           FontWeight="Bold"
-                                           Margin="0,2,0,0"/>
+                                    <TextBlock Text="{Binding AromaGroup}"
+                                               Foreground="Gray"
+                                               FontSize="14"
+                                               Margin="0,4,0,0"/>
 
-                                <TextBlock Text="{Binding AromaGroup}"
-                                           Foreground="Gray"
-                                           FontSize="14"
-                                           Margin="0,4,0,0"/>
+                                    <TextBlock Text="{Binding Volume}"
+                                               Foreground="Gray"
+                                               Margin="0,2,0,0"/>
 
-                                <TextBlock Text="{Binding Volume}"
-                                           Foreground="Gray"
-                                           Margin="0,2,0,0"/>
+                                    <!-- Блок цены -->
+                                    <Grid Margin="0,8,0,0">
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="Auto"/>
+                                            <ColumnDefinition Width="10"/>
+                                            <ColumnDefinition Width="Auto"/>
+                                        </Grid.ColumnDefinitions>
 
-                                <TextBlock Text="{Binding Price, StringFormat='{}{0} BYN'}"
-                                           FontSize="20"
-                                           FontWeight="Bold"
-                                           Margin="0,8,0,0"/>
+                                        <!-- Новая цена -->
+                                        <TextBlock Grid.Column="0"
+                                                   Text="{Binding PriceWithDiscount, StringFormat='{}{0:F2} BYN'}"
+                                                   FontSize="20"
+                                                   FontWeight="Bold"
+                                                   Foreground="#000000"
+                                                   VerticalAlignment="Center">
+                                            <TextBlock.Style>
+                                                <Style TargetType="TextBlock">
+                                                    <Style.Triggers>
+                                                        <DataTrigger Binding="{Binding IsDiscount}" Value="True">
+                                                            <Setter Property="Foreground" Value="#000000"/>
+                                                        </DataTrigger>
+                                                    </Style.Triggers>
+                                                </Style>
+                                            </TextBlock.Style>
+                                        </TextBlock>
+
+                                        <!-- Старая цена -->
+                                        <TextBlock Grid.Column="2"
+                                                   Text="{Binding Price, StringFormat='{}{0:F2} BYN'}"
+                                                   FontSize="20"
+                                                   FontWeight="Bold"
+                                                   Foreground="Gray"
+                                                   TextDecorations="Strikethrough"
+                                                   VerticalAlignment="Center">
+                                            <TextBlock.Style>
+                                                <Style TargetType="TextBlock">
+                                                    <Setter Property="Visibility" Value="Collapsed"/>
+                                                    <Style.Triggers>
+                                                        <DataTrigger Binding="{Binding IsDiscount}" Value="True">
+                                                            <Setter Property="Visibility" Value="Visible"/>
+                                                        </DataTrigger>
+                                                    </Style.Triggers>
+                                                </Style>
+                                            </TextBlock.Style>
+                                        </TextBlock>
+                                    </Grid>
+                                </StackPanel>
                             </StackPanel>
-
-                        </StackPanel>
-                    </Border>
-                </DataTemplate>
-            </ItemsControl.ItemTemplate>
-        </ItemsControl>
-    </ScrollViewer>
+                        </Border>
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+            </ItemsControl>
+        </ScrollViewer>
+    </Grid>
 </Page>

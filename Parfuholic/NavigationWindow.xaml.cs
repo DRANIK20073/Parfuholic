@@ -9,95 +9,97 @@ namespace Parfuholic
 {
     public partial class NavigationWindow : Window
     {
-
         private bool _logoLocked = false;
         private readonly TimeSpan LogoClickDelay = TimeSpan.FromMilliseconds(600);
+        private string _currentCategory = "All";
 
         public NavigationWindow()
         {
             InitializeComponent();
-            CatalogFrame.Navigate(new CatalogPage());
+
+            // ✅ по умолчанию — ВСЕ
+            OpenCatalog("All");
         }
 
+        // 🏠 ЛОГО → ВСЕ ПАРФЮМЫ
         private void LogoButton_Click(object sender, RoutedEventArgs e)
         {
             if (_logoLocked)
                 return;
 
-            // 🔒 блокируем повторный клик
             _logoLocked = true;
 
-            OpenCatalog();
+            OpenCatalog("All");
 
-            // ⏳ разблокировка через 600 мс
             DispatcherTimer timer = new DispatcherTimer
             {
                 Interval = LogoClickDelay
             };
+
             timer.Tick += (s, args) =>
             {
                 _logoLocked = false;
                 timer.Stop();
             };
+
             timer.Start();
         }
 
-        private void OpenCatalog()
+        private void Category_Click(object sender, RoutedEventArgs e)
         {
-            // ❗ если каталог уже открыт — ничего не делаем
-            if (CatalogFrame.Content is CatalogPage)
+            if (sender is Button btn && btn.Tag != null)
+            {
+                string category = btn.Tag.ToString();
+                OpenCatalog(category);
+            }
+        }
+
+        // 📦 ОТКРЫТИЕ КАТАЛОГА С КАТЕГОРИЕЙ
+        private void OpenCatalog(string category)
+        {
+            if (CatalogFrame.Content is CatalogPage && _currentCategory == category)
                 return;
 
-            // 🔥 полностью очищаем старую страницу
-            CatalogFrame.Content = null;
+            _currentCategory = category;
 
-            GC.Collect();
-            GC.WaitForPendingFinalizers();
+            CatalogFrame.Navigate(new CatalogPage(category));
 
-            // 🔁 загружаем заново
-            CatalogFrame.Navigate(new CatalogPage());
-
-            // ❌ убираем историю
             while (CatalogFrame.CanGoBack)
                 CatalogFrame.RemoveBackEntry();
         }
 
+        // 🔐 ВХОД
         private void LoginButton_Click(object sender, RoutedEventArgs e)
         {
-            // Показываем Frame и загружаем страницу логина
             LoginPage.Visibility = Visibility.Visible;
             LoginPage.Navigate(new LoginPage());
+
+            while (LoginPage.CanGoBack)
+                LoginPage.RemoveBackEntry();
         }
 
+        // 🖱 КЛИК ПО ФОНУ — ЗАКРЫТЬ ОВЕРЛЕЙ
         private void OverlayFrame_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
-            // Закрываем оверлей при клике на фон
             CloseOverlay();
         }
 
+        // ❌ ЗАКРЫТИЕ ОВЕРЛЕЯ
         public void CloseOverlay()
         {
-            // Скрываем Frame и очищаем навигацию
             LoginPage.Visibility = Visibility.Collapsed;
             LoginPage.Content = null;
 
-            // Очищаем историю навигации
             while (LoginPage.CanGoBack)
-            {
                 LoginPage.RemoveBackEntry();
-            }
-            while (LoginPage.CanGoForward)
-            {
-                LoginPage.RemoveBackEntry();
-            }
         }
 
+        // 👤 ПЕРЕХОД В РЕЖИМ ПОЛЬЗОВАТЕЛЯ
         public void OpenUserMode()
         {
             UserMainWindow userWindow = new UserMainWindow();
             userWindow.Show();
-            this.Close();
+            Close();
         }
-
     }
 }

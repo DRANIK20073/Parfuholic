@@ -7,6 +7,7 @@ using System.Windows.Controls;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Data.SqlClient;
+using Parfuholic.Services;
 
 namespace Parfuholic.Pages
 {
@@ -233,5 +234,25 @@ namespace Parfuholic.Pages
             if (NavigationService.CanGoBack)
                 NavigationService.GoBack();
         }
+
+        //Добавить в корзину
+        private void AddToCartButton_Click(object sender, RoutedEventArgs e)
+        {
+            if (selectedVariant != null)
+            {
+                // Используем сервис корзины
+                CartService.AddToCart(selectedVariant);
+
+                // Показать сообщение
+                MessageBox.Show($"{selectedVariant.Name} добавлен в корзину",
+                              "Добавлено",
+                              MessageBoxButton.OK,
+                              MessageBoxImage.Information);
+            }
+        }
+
+
+
+
     }
 }

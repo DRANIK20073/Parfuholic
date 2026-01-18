@@ -101,5 +101,15 @@ namespace Parfuholic
             userWindow.Show();
             Close();
         }
+
+        //Корзина
+        private void Cart_Click(object sender, RoutedEventArgs e)
+        {
+            MessageBox.Show("Для доступа к корзине необходимо войти в аккаунт.",
+                          "Требуется авторизация",
+                          MessageBoxButton.OK,
+                          MessageBoxImage.Information);
+        }
+
     }
 }

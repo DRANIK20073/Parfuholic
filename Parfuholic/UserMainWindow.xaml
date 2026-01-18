@@ -126,7 +126,8 @@
                     </Button>
 
                     <Button Content="Корзина"
-                            Style="{StaticResource HeaderButton}"/>
+                            Style="{StaticResource HeaderButton}"
+                            Click="CartButton_Click"/>
                 </StackPanel>
             </Grid>
         </Border>

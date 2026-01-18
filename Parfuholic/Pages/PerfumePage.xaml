@@ -139,6 +139,7 @@
                             Background="#000000"
                             Foreground="#FFFFFF"
                             FontSize="16"
+                            Click="AddToCartButton_Click"
                             BorderBrush="#000000"
                             BorderThickness="1"
                             Cursor="Hand">

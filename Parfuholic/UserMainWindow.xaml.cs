@@ -83,6 +83,13 @@ namespace Parfuholic
             }
         }
 
+        //Корзина
+        private void CartButton_Click(object sender, RoutedEventArgs e)
+        {
+            CatalogFrame.Navigate(new CartPage());
+        }
+
+
         // 🚪 ВЫХОД
         public void Logout()
         {

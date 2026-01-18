@@ -59,10 +59,15 @@
       <DependentUpon>AdminWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="Database.cs" />
+    <Compile Include="Models\CartItem.cs" />
+    <Compile Include="Services\CartService.cs" />
     <Compile Include="Models\Perfume.cs" />
     <Compile Include="Models\User.cs" />
     <Compile Include="Pages\AddPerfumePage.xaml.cs">
       <DependentUpon>AddPerfumePage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\CartPage.xaml.cs">
+      <DependentUpon>CartPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Pages\CatalogPage.xaml.cs">
       <DependentUpon>CatalogPage.xaml</DependentUpon>
@@ -94,6 +99,7 @@
     <Compile Include="Pages\UsersAdminPage.xaml.cs">
       <DependentUpon>UsersAdminPage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Services\UserSession.cs" />
     <Compile Include="UserMainWindow.xaml.cs">
       <DependentUpon>UserMainWindow.xaml</DependentUpon>
     </Compile>
@@ -102,6 +108,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Pages\AddPerfumePage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Pages\CartPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

@@ -124,7 +124,7 @@
                             Orientation="Horizontal"
                             VerticalAlignment="Center">
                     <Button Content="Войти" Style="{StaticResource HeaderButton}" Click="LoginButton_Click"/>
-                    <Button Content="Корзина" Style="{StaticResource HeaderButton}"/>
+                    <Button Content="Корзина" Click="Cart_Click" Style="{StaticResource HeaderButton}"/>
                 </StackPanel>
             </Grid>
         </Border>

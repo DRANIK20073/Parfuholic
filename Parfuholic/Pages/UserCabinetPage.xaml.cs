@@ -6,9 +6,15 @@ namespace Parfuholic.Pages
 {
     public partial class UserCabinetPage : Page
     {
-        public UserCabinetPage()
+        private int currentUserId; // поле для хранения ID пользователя
+
+        // Конструктор теперь принимает userId
+        public UserCabinetPage(int userId)
         {
             InitializeComponent();
+            currentUserId = userId;
+
+            // по умолчанию открываем избранное
             CabinetFrame.Navigate(new FavoritesPage());
         }
 
@@ -23,14 +29,16 @@ namespace Parfuholic.Pages
         {
             ResetButtons();
             ProfileBtn.Tag = "Active";
-            CabinetFrame.Navigate(new ProfileDataPage());
+
+            // передаем текущий ID пользователя в ProfileDataPage
+            CabinetFrame.Navigate(new ProfileDataPage(currentUserId));
         }
 
         private void Orders_Click(object sender, RoutedEventArgs e)
         {
             ResetButtons();
             OrdersBtn.Tag = "Active";
-            CabinetFrame.Navigate(new OrdersHistoryPage());
+            CabinetFrame.Navigate(new OrdersHistoryPage(currentUserId));
         }
 
         private void Favorites_Click(object sender, RoutedEventArgs e)
@@ -50,6 +58,5 @@ namespace Parfuholic.Pages
                 userWindow.Logout();
             }
         }
-
     }
 }

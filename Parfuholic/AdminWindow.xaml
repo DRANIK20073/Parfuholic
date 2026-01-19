@@ -46,6 +46,10 @@
                         Click="Users_Click"
                         Style="{StaticResource AdminMenuButton}"/>
 
+                <Button Content="Заказы пользователей"
+                        Click="Orders_Click"
+                        Style="{StaticResource AdminMenuButton}"/>
+
                 <Button Content="Товары"
                         Click="Products_Click"
                         Style="{StaticResource AdminMenuButton}"/>

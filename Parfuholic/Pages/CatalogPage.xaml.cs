@@ -20,6 +20,7 @@ namespace Parfuholic.Pages
         private string _category;
         private bool _isNavigating = false;
 
+
         private bool _hasPerfumes;
         public bool HasPerfumes
         {
@@ -112,6 +113,7 @@ namespace Parfuholic.Pages
 
             if (sender is Border border && border.DataContext is Perfume perfume)
             {
+                // Передаем состояние авторизации
                 NavigationService?.Navigate(new PerfumePage(perfume.Id, perfume.Volume));
                 NavigationService?.RemoveBackEntry();
             }

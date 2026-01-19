@@ -60,6 +60,11 @@
     </Compile>
     <Compile Include="Database.cs" />
     <Compile Include="Models\CartItem.cs" />
+    <Compile Include="Models\Order.cs" />
+    <Compile Include="Pages\AdminOrdersPage.xaml.cs">
+      <DependentUpon>AdminOrdersPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Services\AuthService.cs" />
     <Compile Include="Services\CartService.cs" />
     <Compile Include="Models\Perfume.cs" />
     <Compile Include="Models\User.cs" />
@@ -108,6 +113,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Pages\AddPerfumePage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Pages\AdminOrdersPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

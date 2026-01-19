@@ -1,4 +1,5 @@
-﻿using Parfuholic.Pages;
+﻿using Parfuholic.Models;
+using Parfuholic.Pages;
 using System;
 using System.Windows;
 using System.Windows.Controls;
@@ -12,11 +13,11 @@ namespace Parfuholic
         private bool _logoLocked = false;
         private readonly TimeSpan LogoClickDelay = TimeSpan.FromMilliseconds(600);
         private string _currentCategory = "All";
+        private int CurrentUserId;
 
         public NavigationWindow()
         {
             InitializeComponent();
-
             // ✅ по умолчанию — ВСЕ
             OpenCatalog("All");
         }
@@ -97,7 +98,7 @@ namespace Parfuholic
         // 👤 ПЕРЕХОД В РЕЖИМ ПОЛЬЗОВАТЕЛЯ
         public void OpenUserMode()
         {
-            UserMainWindow userWindow = new UserMainWindow();
+            UserMainWindow userWindow = new UserMainWindow(CurrentUserId);
             userWindow.Show();
             Close();
         }

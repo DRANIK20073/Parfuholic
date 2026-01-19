@@ -1,13 +1,13 @@
-﻿using Parfuholic.Models;
-using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Media;
+﻿using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Data.SqlClient;
 using Parfuholic.Services;
+using Parfuholic.Models;
+using System.Collections.Generic;
+using System.IO;
+using System.Windows.Controls;
+using System.Windows;
+using System;
 
 namespace Parfuholic.Pages
 {
@@ -235,21 +235,34 @@ namespace Parfuholic.Pages
                 NavigationService.GoBack();
         }
 
-        //Добавить в корзину
         private void AddToCartButton_Click(object sender, RoutedEventArgs e)
         {
+            if (!AuthService.IsLoggedIn)
+            {
+                MessageBox.Show(
+                    "Чтобы добавить товар в корзину, войдите в аккаунт.",
+                    "Требуется вход",
+                    MessageBoxButton.OK,
+                    MessageBoxImage.Warning
+                );
+
+                return;
+            }
+
+            // ✅ Если вошел
             if (selectedVariant != null)
             {
-                // Используем сервис корзины
                 CartService.AddToCart(selectedVariant);
 
-                // Показать сообщение
-                MessageBox.Show($"{selectedVariant.Name} добавлен в корзину",
-                              "Добавлено",
-                              MessageBoxButton.OK,
-                              MessageBoxImage.Information);
+                MessageBox.Show(
+                    $"{selectedVariant.Name} добавлен в корзину",
+                    "Добавлено",
+                    MessageBoxButton.OK,
+                    MessageBoxImage.Information
+                );
             }
         }
+
 
 
 

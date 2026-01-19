@@ -16,6 +16,11 @@ namespace Parfuholic
             AdminFrame.Navigate(new UsersAdminPage());
         }
 
+        private void Orders_Click(object sender, RoutedEventArgs e)
+        {
+            AdminFrame.Navigate(new AdminOrdersPage());
+        }
+
         private void Products_Click(object sender, RoutedEventArgs e)
         {
             AdminFrame.Navigate(new ManagePerfumesPage());

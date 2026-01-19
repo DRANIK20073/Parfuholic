@@ -36,13 +36,11 @@ namespace Parfuholic.Models
             {
                 if (IsDiscount && DiscountPercent > 0)
                 {
-                    // Вычисляем цену со скидкой и округляем до 2 знаков
                     decimal discountedPrice = Price * (100 - DiscountPercent) / 100;
                     return decimal.Round(discountedPrice, 2);
                 }
                 else
                 {
-                    // Без скидки - возвращаем обычную цену
                     return decimal.Round(Price, 2);
                 }
             }

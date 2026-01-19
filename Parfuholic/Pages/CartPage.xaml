@@ -4,6 +4,30 @@
       xmlns:models="clr-namespace:Parfuholic.Models"
       Background="#FFF5F5F5">
 
+    <Page.Resources>
+
+        <!-- Стиль TextBox как в ProfileDataPage -->
+        <Style x:Key="ProfileTextBox" TargetType="TextBox">
+            <Setter Property="Height" Value="40"/>
+            <Setter Property="FontSize" Value="16"/>
+            <Setter Property="VerticalContentAlignment" Value="Center"/>
+            <Setter Property="BorderThickness" Value="0,0,0,1"/>
+            <Setter Property="BorderBrush" Value="Black"/>
+            <Setter Property="Background" Value="Transparent"/>
+        </Style>
+
+        <!-- Стиль placeholder -->
+        <Style x:Key="ProfilePlaceholder" TargetType="TextBlock">
+            <Setter Property="Foreground" Value="Gray"/>
+            <Setter Property="FontSize" Value="16"/>
+            <Setter Property="IsHitTestVisible" Value="False"/>
+            <Setter Property="VerticalAlignment" Value="Center"/>
+            <Setter Property="Visibility" Value="Collapsed"/>
+        </Style>
+
+    </Page.Resources>
+
+
     <Grid Margin="60,40,60,40">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="2*"/>
@@ -284,78 +308,103 @@
             <TextBlock Text="ОФОРМЛЕНИЕ ЗАКАЗА"
                        FontSize="22"
                        FontWeight="Bold"
-                       Margin="0,0,0,20"/>
+                       Margin="0,0,0,25"/>
 
-            <!-- Поля формы -->
-            <StackPanel>
-                <TextBlock Text="Телефон"
-                           FontSize="14"
-                           Margin="0,0,0,5"/>
-                <TextBox x:Name="PhoneBox"
-                         Height="40"
-                         FontSize="14"
-                         Padding="10"
-                         BorderBrush="#CCCCCC"
-                         BorderThickness="1"
-                         Background="White"/>
+            <!-- Телефон -->
+            <Grid Margin="0,0,0,20">
+                <TextBox x:Name="PhoneBox" Style="{StaticResource ProfileTextBox}" Text="{Binding Phone, UpdateSourceTrigger=PropertyChanged}" />
+                <TextBlock Text="Телефон">
+                    <TextBlock.Style>
+                        <Style TargetType="TextBlock" BasedOn="{StaticResource ProfilePlaceholder}">
+                            <Style.Triggers>
+                                <DataTrigger Binding="{Binding Text, ElementName=PhoneBox}" Value="">
+                                    <Setter Property="Visibility" Value="Visible"/>
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </TextBlock.Style>
+                </TextBlock>
+            </Grid>
 
-                <TextBlock Text="Email"
-                           FontSize="14"
-                           Margin="0,15,0,5"/>
-                <TextBox x:Name="EmailBox"
-                         Height="40"
-                         FontSize="14"
-                         Padding="10"
-                         BorderBrush="#CCCCCC"
-                         BorderThickness="1"
-                         Background="White"/>
+            <!-- Email -->
+            <Grid Margin="0,0,0,20">
+                <TextBox x:Name="EmailBox" Style="{StaticResource ProfileTextBox}" Text="{Binding Email, UpdateSourceTrigger=PropertyChanged}"/>
+                <TextBlock Text="Email">
+                    <TextBlock.Style>
+                        <Style TargetType="TextBlock" BasedOn="{StaticResource ProfilePlaceholder}">
+                            <Style.Triggers>
+                                <DataTrigger Binding="{Binding Text, ElementName=EmailBox}" Value="">
+                                    <Setter Property="Visibility" Value="Visible"/>
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </TextBlock.Style>
+                </TextBlock>
+            </Grid>
 
-                <TextBlock Text="Имя"
-                           FontSize="14"
-                           Margin="0,15,0,5"/>
-                <TextBox x:Name="FirstNameBox"
-                         Height="40"
-                         FontSize="14"
-                         Padding="10"
-                         BorderBrush="#CCCCCC"
-                         BorderThickness="1"
-                         Background="White"/>
+            <!-- Имя -->
+            <Grid Margin="0,0,0,20">
+                <TextBox x:Name="FirstNameBox" Style="{StaticResource ProfileTextBox}" Text="{Binding FirstName, UpdateSourceTrigger=PropertyChanged}"/>
+                <TextBlock Text="Имя">
+                    <TextBlock.Style>
+                        <Style TargetType="TextBlock" BasedOn="{StaticResource ProfilePlaceholder}">
+                            <Style.Triggers>
+                                <DataTrigger Binding="{Binding Text, ElementName=FirstNameBox}" Value="">
+                                    <Setter Property="Visibility" Value="Visible"/>
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </TextBlock.Style>
+                </TextBlock>
+            </Grid>
 
-                <TextBlock Text="Фамилия"
-                           FontSize="14"
-                           Margin="0,15,0,5"/>
-                <TextBox x:Name="LastNameBox"
-                         Height="40"
-                         FontSize="14"
-                         Padding="10"
-                         BorderBrush="#CCCCCC"
-                         BorderThickness="1"
-                         Background="White"/>
+            <!-- Фамилия -->
+            <Grid Margin="0,0,0,20">
+                <TextBox x:Name="LastNameBox" Style="{StaticResource ProfileTextBox}" Text="{Binding LastName, UpdateSourceTrigger=PropertyChanged}"/>
+                <TextBlock Text="Фамилия">
+                    <TextBlock.Style>
+                        <Style TargetType="TextBlock" BasedOn="{StaticResource ProfilePlaceholder}">
+                            <Style.Triggers>
+                                <DataTrigger Binding="{Binding Text, ElementName=LastNameBox}" Value="">
+                                    <Setter Property="Visibility" Value="Visible"/>
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </TextBlock.Style>
+                </TextBlock>
+            </Grid>
 
-                <TextBlock Text="Город"
-                           FontSize="14"
-                           Margin="0,15,0,5"/>
-                <TextBox x:Name="CityBox"
-                         Height="40"
-                         FontSize="14"
-                         Padding="10"
-                         BorderBrush="#CCCCCC"
-                         BorderThickness="1"
-                         Background="White"/>
+            <!-- Город -->
+            <Grid Margin="0,0,0,20">
+                <TextBox x:Name="CityBox" Style="{StaticResource ProfileTextBox}" Text="{Binding City, UpdateSourceTrigger=PropertyChanged}"/>
+                <TextBlock Text="Город">
+                    <TextBlock.Style>
+                        <Style TargetType="TextBlock" BasedOn="{StaticResource ProfilePlaceholder}">
+                            <Style.Triggers>
+                                <DataTrigger Binding="{Binding Text, ElementName=CityBox}" Value="">
+                                    <Setter Property="Visibility" Value="Visible"/>
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </TextBlock.Style>
+                </TextBlock>
+            </Grid>
 
-                <TextBlock Text="Адрес"
-                           FontSize="14"
-                           Margin="0,15,0,5"/>
-                <TextBox x:Name="AddressBox"
-                         Height="60"
-                         FontSize="14"
-                         Padding="10"
-                         BorderBrush="#CCCCCC"
-                         BorderThickness="1"
-                         Background="White"
-                         TextWrapping="Wrap"
-                         AcceptsReturn="True"/>
-            </StackPanel>
+            <!-- Адрес -->
+            <Grid Margin="0,0,0,30">
+                <TextBox x:Name="AddressBox" Style="{StaticResource ProfileTextBox}" Text="{Binding Address, UpdateSourceTrigger=PropertyChanged}" Height="60" AcceptsReturn="True" TextWrapping="Wrap"/>
+                <TextBlock Text="Адрес">
+                    <TextBlock.Style>
+                        <Style TargetType="TextBlock" BasedOn="{StaticResource ProfilePlaceholder}">
+                            <Style.Triggers>
+                                <DataTrigger Binding="{Binding Text, ElementName=AddressBox}" Value="">
+                                    <Setter Property="Visibility" Value="Visible"/>
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </TextBlock.Style>
+                </TextBlock>
+            </Grid>
 
             <!-- Итог -->
             <Border Background="White"

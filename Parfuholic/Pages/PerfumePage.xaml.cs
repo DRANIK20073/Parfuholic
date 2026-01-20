@@ -17,6 +17,8 @@ namespace Parfuholic.Pages
         private List<Perfume> variants;
         private string initialVolume;
 
+        private bool _isFavorite; // состояние избранного
+
         public PerfumePage(int perfumeId, string selectedVolume)
         {
             InitializeComponent();
@@ -29,6 +31,20 @@ namespace Parfuholic.Pages
                 selectedVariant = variants.Find(v => v.Volume == initialVolume) ?? variants[0];
                 LoadData(selectedVariant);
                 CreateVolumeButtons();
+
+                // Проверяем, есть ли этот вариант в избранном
+                if (AuthService.IsLoggedIn)
+                {
+                    if (AuthService.CurrentUserId.HasValue)
+                    {
+                        _isFavorite = FavoritesService.IsFavorite(AuthService.CurrentUserId.Value, selectedVariant.Id);
+                    }
+                    else
+                    {
+                        _isFavorite = false;
+                    }
+                    UpdateFavoriteButton();
+                }
             }
         }
 
@@ -43,23 +59,20 @@ namespace Parfuholic.Pages
             TopNotesText.Text = p.TopNotes;
             VolumeText.Text = p.Volume;
 
-            // Скидка
+            // ===== Цена и скидка =====
             if (p.IsDiscount && p.DiscountPercent > 0)
             {
-                // Новая цена со скидкой (слева)
                 decimal discountedPrice = Math.Round(p.Price * (100 - p.DiscountPercent) / 100, 2);
                 PriceText.Text = $"{discountedPrice:F2} BYN";
                 PriceText.Foreground = Brushes.Black;
                 PriceText.FontSize = 28;
                 PriceText.FontWeight = FontWeights.Bold;
 
-                // Подпись под новой ценой
                 DiscountLabel.Text = $"со скидкой {p.DiscountPercent}%";
                 DiscountLabel.Visibility = Visibility.Visible;
                 DiscountLabel.Foreground = Brushes.Black;
                 DiscountLabel.FontSize = 14;
 
-                // Старая цена
                 OldPriceText.Text = $"{p.Price:F2} BYN";
                 OldPriceText.Visibility = Visibility.Visible;
                 OldPriceText.Foreground = Brushes.Gray;
@@ -67,20 +80,17 @@ namespace Parfuholic.Pages
                 OldPriceText.FontWeight = FontWeights.Bold;
                 OldPriceText.TextDecorations = TextDecorations.Strikethrough;
 
-                // Подпись под старой ценой
                 OldPriceLabel.Visibility = Visibility.Visible;
                 OldPriceLabel.Foreground = Brushes.Gray;
                 OldPriceLabel.FontSize = 14;
             }
             else
             {
-                // Нет скидки - показываем только обычную цену слева
                 PriceText.Text = $"{p.Price:F2} BYN";
                 PriceText.Foreground = Brushes.Black;
                 PriceText.FontSize = 28;
                 PriceText.FontWeight = FontWeights.Bold;
 
-                // Скрываем подписи и старую цену справа
                 DiscountLabel.Visibility = Visibility.Collapsed;
                 OldPriceText.Visibility = Visibility.Collapsed;
                 OldPriceLabel.Visibility = Visibility.Collapsed;
@@ -137,7 +147,6 @@ namespace Parfuholic.Pages
                         IsDiscount = Convert.ToBoolean(reader["IsDiscount"])
                     };
 
-                    // Загружаем DiscountPercent
                     object discountPercentValue = reader["DiscountPercent"];
                     if (discountPercentValue != DBNull.Value && discountPercentValue != null)
                     {
@@ -202,14 +211,25 @@ namespace Parfuholic.Pages
 
                 border.Child = text;
 
-                border.MouseEnter += (s, e) => { border.Background = Brushes.White; };
-                border.MouseLeave += (s, e) => { border.Background = Brushes.White; };
-
                 border.MouseLeftButtonUp += (s, e) =>
                 {
                     selectedVariant = variant;
                     LoadData(selectedVariant);
                     UpdateVolumeButtons();
+
+                    // обновляем состояние кнопки избранного
+                    if (AuthService.IsLoggedIn)
+                    {
+                        if (AuthService.CurrentUserId.HasValue)
+                        {
+                            _isFavorite = FavoritesService.IsFavorite(AuthService.CurrentUserId.Value, selectedVariant.Id);
+                        }
+                        else
+                        {
+                            _isFavorite = false;
+                        }
+                        UpdateFavoriteButton();
+                    }
                 };
 
                 VolumeButtonsPanel.Children.Add(border);
@@ -228,7 +248,6 @@ namespace Parfuholic.Pages
             }
         }
 
-        // ===== Кнопка назад =====
         private void BackButton_Click(object sender, RoutedEventArgs e)
         {
             if (NavigationService.CanGoBack)
@@ -245,11 +264,9 @@ namespace Parfuholic.Pages
                     MessageBoxButton.OK,
                     MessageBoxImage.Warning
                 );
-
                 return;
             }
 
-            // ✅ Если вошел
             if (selectedVariant != null)
             {
                 CartService.AddToCart(selectedVariant);
@@ -263,9 +280,43 @@ namespace Parfuholic.Pages
             }
         }
 
+        private void UpdateFavoriteButton()
+        {
+            if (_isFavorite)
+            {
+                AddToFavoritesButton.Content = "-";
+                AddToFavoritesButton.Background = Brushes.White;
+                AddToFavoritesButton.Foreground = Brushes.Black;
+            }
+            else
+            {
+                AddToFavoritesButton.Content = "+";
+                AddToFavoritesButton.Background = Brushes.Black;
+                AddToFavoritesButton.Foreground = Brushes.White;
+            }
+        }
 
+        private void AddToFavoritesButton_Click(object sender, RoutedEventArgs e)
+        {
+            if (selectedVariant == null || !AuthService.IsLoggedIn) return;
 
+            if (!AuthService.CurrentUserId.HasValue) return;
+            int userId = AuthService.CurrentUserId.Value;
 
+            if (_isFavorite)
+            {
+                FavoritesService.Remove(userId, selectedVariant.Id);
+                _isFavorite = false;
+                MessageBox.Show($"{selectedVariant.Name} удалён из избранного", "Избранное", MessageBoxButton.OK, MessageBoxImage.Information);
+            }
+            else
+            {
+                FavoritesService.Add(userId, selectedVariant);
+                _isFavorite = true;
+                MessageBox.Show($"{selectedVariant.Name} добавлен в избранное", "Избранное", MessageBoxButton.OK, MessageBoxImage.Information);
+            }
 
+            UpdateFavoriteButton();
+        }
     }
 }

@@ -185,9 +185,9 @@
                         <Button.Template>
                             <ControlTemplate TargetType="Button">
                                 <Border x:Name="favBorder"
-                        Background="{TemplateBinding Background}"
-                        BorderBrush="{TemplateBinding BorderBrush}"
-                        BorderThickness="{TemplateBinding BorderThickness}">
+                                    Background="{TemplateBinding Background}"
+                                    BorderBrush="{TemplateBinding BorderBrush}"
+                                    BorderThickness="{TemplateBinding BorderThickness}">
                                     <ContentPresenter x:Name="favContent"
                                       HorizontalAlignment="Center"
                                       VerticalAlignment="Center"

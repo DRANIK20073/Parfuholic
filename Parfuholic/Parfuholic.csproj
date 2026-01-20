@@ -60,6 +60,7 @@
     </Compile>
     <Compile Include="Database.cs" />
     <Compile Include="Models\CartItem.cs" />
+    <Compile Include="Models\Favorites.cs" />
     <Compile Include="Models\Order.cs" />
     <Compile Include="Pages\AdminOrdersPage.xaml.cs">
       <DependentUpon>AdminOrdersPage.xaml</DependentUpon>
@@ -104,6 +105,7 @@
     <Compile Include="Pages\UsersAdminPage.xaml.cs">
       <DependentUpon>UsersAdminPage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Services\FavoritesService.cs" />
     <Compile Include="Services\UserSession.cs" />
     <Compile Include="UserMainWindow.xaml.cs">
       <DependentUpon>UserMainWindow.xaml</DependentUpon>

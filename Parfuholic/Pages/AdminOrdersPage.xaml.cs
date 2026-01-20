@@ -35,9 +35,9 @@ namespace Parfuholic.Pages
             {
                 conn.Open();
 
-                // Загружаем заказы
+                // Загружаем заказы с новыми полями
                 string sqlOrders = @"
-                    SELECT OrderID, OrderDate, TotalSum, Status
+                    SELECT OrderID, OrderDate, TotalSum, Status, FirstName, LastName, City, Address
                     FROM Orders";
 
                 using (SqlCommand cmdOrders = new SqlCommand(sqlOrders, conn))
@@ -50,16 +50,20 @@ namespace Parfuholic.Pages
                             OrderID = readerOrders.GetInt32(0),
                             OrderDate = readerOrders.GetDateTime(1),
                             TotalSum = readerOrders.GetDecimal(2),
-                            Status = readerOrders["Status"] != DBNull.Value ? readerOrders.GetString(3) : "Создан"
+                            Status = readerOrders["Status"] != DBNull.Value ? readerOrders.GetString(3) : "Создан",
+                            FirstName = readerOrders["FirstName"] != DBNull.Value ? readerOrders.GetString(4) : "",
+                            LastName = readerOrders["LastName"] != DBNull.Value ? readerOrders.GetString(5) : "",
+                            City = readerOrders["City"] != DBNull.Value ? readerOrders.GetString(6) : "",
+                            Address = readerOrders["Address"] != DBNull.Value ? readerOrders.GetString(7) : ""
                         });
                     }
                 }
 
-                // Загружаем товары
+                // Загружаем товары для каждого заказа
                 foreach (var order in Orders)
                 {
                     string sqlItems = @"
-                        SELECT p.Id, p.Name, p.Price, p.DiscountPercent, od.Quantity
+                        SELECT p.Id, p.Name, p.Brand, p.Price, p.DiscountPercent, p.ImageData, od.Quantity
                         FROM OrderDetails od
                         INNER JOIN Perfumes p ON od.PerfumeID = p.Id
                         WHERE od.OrderID = @orderId";
@@ -76,14 +80,16 @@ namespace Parfuholic.Pages
                                 {
                                     Id = readerItems.GetInt32(0),
                                     Name = readerItems.GetString(1),
-                                    Price = readerItems.GetDecimal(2),
-                                    DiscountPercent = readerItems.GetInt32(3)
+                                    Brand = readerItems.GetString(2),
+                                    Price = readerItems.GetDecimal(3),
+                                    DiscountPercent = readerItems.GetInt32(4),
+                                    ImageData = readerItems["ImageData"] != DBNull.Value ? (byte[])readerItems["ImageData"] : null
                                 };
 
                                 var orderItem = new OrderItem
                                 {
                                     Perfume = perfume,
-                                    Quantity = readerItems.GetInt32(4)
+                                    Quantity = readerItems.GetInt32(6)
                                 };
 
                                 order.Items.Add(orderItem);
@@ -114,10 +120,22 @@ namespace Parfuholic.Pages
 
                     foreach (var order in Orders)
                     {
-                        string sql = "UPDATE Orders SET Status = @status WHERE OrderID = @orderId";
+                        string sql = @"
+                            UPDATE Orders
+                            SET Status = @status,
+                                FirstName = @firstName,
+                                LastName = @lastName,
+                                City = @city,
+                                Address = @address
+                            WHERE OrderID = @orderId";
+
                         using (SqlCommand cmd = new SqlCommand(sql, conn))
                         {
                             cmd.Parameters.AddWithValue("@status", order.Status);
+                            cmd.Parameters.AddWithValue("@firstName", order.FirstName ?? "");
+                            cmd.Parameters.AddWithValue("@lastName", order.LastName ?? "");
+                            cmd.Parameters.AddWithValue("@city", order.City ?? "");
+                            cmd.Parameters.AddWithValue("@address", order.Address ?? "");
                             cmd.Parameters.AddWithValue("@orderId", order.OrderID);
                             cmd.ExecuteNonQuery();
                         }
@@ -126,7 +144,7 @@ namespace Parfuholic.Pages
 
                 MessageBox.Show("Изменения успешно сохранены!", "Успех", MessageBoxButton.OK, MessageBoxImage.Information);
             }
-            catch (System.Exception ex)
+            catch (Exception ex)
             {
                 MessageBox.Show("Ошибка при сохранении: " + ex.Message, "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
             }

@@ -5,23 +5,25 @@
 
     <Page.Resources>
 
-        <!-- Стиль кнопок меню профиля -->
         <Style x:Key="ProfileMenuButton" TargetType="Button">
             <Setter Property="Background" Value="Transparent"/>
             <Setter Property="BorderThickness" Value="0"/>
-            <Setter Property="FontSize" Value="18"/>
+            <Setter Property="FontSize" Value="20"/>
             <Setter Property="FontWeight" Value="Normal"/>
             <Setter Property="HorizontalAlignment" Value="Left"/>
             <Setter Property="Cursor" Value="Hand"/>
             <Setter Property="FocusVisualStyle" Value="{x:Null}"/>
-
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <ContentPresenter HorizontalAlignment="Left" VerticalAlignment="Center"/>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
             <Style.Triggers>
-                <!-- Наведение -->
                 <Trigger Property="IsMouseOver" Value="True">
                     <Setter Property="FontWeight" Value="SemiBold"/>
                 </Trigger>
-
-                <!-- Активная кнопка -->
                 <Trigger Property="Tag" Value="Active">
                     <Setter Property="FontWeight" Value="Bold"/>
                 </Trigger>
@@ -40,37 +42,37 @@
         <!-- ЛЕВОЕ МЕНЮ -->
         <StackPanel Grid.Column="0">
 
-            <TextBlock Text="Имя"
-                       FontSize="20"
-                       FontWeight="Bold"/>
+            <!-- ИМЯ И ФАМИЛИЯ / Любимый пользователь -->
+            <TextBlock x:Name="UserFirstNameText"
+               Text="Любимый"
+               FontSize="24"
+               FontWeight="Bold"/>
+            <TextBlock x:Name="UserLastNameText"
+               Text="пользователь"
+               FontSize="24"
+               FontWeight="Bold"
+               Margin="0,0,0,0"/>
 
-            <TextBlock Text="Фамилия"
-                       FontSize="20"
-                       FontWeight="Bold"
-                       Margin="0,0,0,0"/>
-
+            <!-- МЕНЮ -->
             <Button x:Name="ProfileBtn"
-                    FocusVisualStyle="{x:Null}"
-                    Content="Личные данные"
-                    Style="{StaticResource ProfileMenuButton}"
-                    Click="Profile_Click"/>
-
+            Content="Личные данные"
+            Style="{StaticResource ProfileMenuButton}"
+            Click="Profile_Click"
+            Tag="Active"
+            Margin="0,0,0,5"/>
             <Button x:Name="OrdersBtn"
-                    FocusVisualStyle="{x:Null}"
-                    Content="История заказов"
-                    Style="{StaticResource ProfileMenuButton}"
-                    Click="Orders_Click"/>
-
+            Content="История заказов"
+            Style="{StaticResource ProfileMenuButton}"
+            Click="Orders_Click"
+            Margin="0,0,0,5"/>
             <Button x:Name="FavoritesBtn"
-                    Content="Избранное"
-                    FocusVisualStyle="{x:Null}"
-                    Style="{StaticResource ProfileMenuButton}"
-                    Click="Favorites_Click"/>
-
+            Content="Избранное"
+            Style="{StaticResource ProfileMenuButton}"
+            Click="Favorites_Click"
+            Margin="0,0,0,5"/>
             <Button Content="Выйти"
-                    FocusVisualStyle="{x:Null}"
-                    Style="{StaticResource ProfileMenuButton}"
-                    Click="Logout_Click"/>
+            Style="{StaticResource ProfileMenuButton}"
+            Click="Logout_Click"/>
         </StackPanel>
 
         <!-- ПРАВАЯ ЧАСТЬ -->

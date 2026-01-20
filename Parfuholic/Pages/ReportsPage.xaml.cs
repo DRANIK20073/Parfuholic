@@ -1,5 +1,9 @@
-﻿using System;
+﻿using LiveCharts;
+using LiveCharts.Wpf;
+using System;
 using System.Collections.Generic;
+using System.Data.SqlClient;
+using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
 
@@ -7,11 +11,12 @@ namespace Parfuholic.Pages
 {
     public partial class ReportsPage : Page
     {
+        private readonly string connectionString =
+            @"Data Source=.\SQLEXPRESS;Initial Catalog=ParfuholicDB;Integrated Security=True";
+
         public ReportsPage()
         {
             InitializeComponent();
-
-            // Устанавливаем даты по умолчанию на сегодня
             StartDatePicker.SelectedDate = DateTime.Today;
             EndDatePicker.SelectedDate = DateTime.Today;
         }
@@ -23,7 +28,7 @@ namespace Parfuholic.Pages
 
             if (startDate == null || endDate == null)
             {
-                MessageBox.Show("Пожалуйста, выберите даты начала и конца периода.", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Warning);
+                MessageBox.Show("Выберите даты.", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Warning);
                 return;
             }
 
@@ -33,28 +38,104 @@ namespace Parfuholic.Pages
                 return;
             }
 
-            var salesReport = GetDummySalesReport(startDate.Value, endDate.Value);
-            ReportsDataGrid.ItemsSource = salesReport;
+            try
+            {
+                var data = GetSalesData(startDate.Value, endDate.Value);
+                DrawChart(data);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Ошибка при построении отчета:\n" + ex.Message);
+            }
         }
 
-        private List<SaleRecord> GetDummySalesReport(DateTime start, DateTime end)
+        private List<SaleSummary> GetSalesData(DateTime start, DateTime end)
         {
-            var list = new List<SaleRecord>
+            var list = new List<SaleSummary>();
+
+            using (var conn = new SqlConnection(connectionString))
             {
-                new SaleRecord { Date = start.ToShortDateString(), Product = "Парфюм A", Quantity = 3, Total = 4500 },
-                new SaleRecord { Date = start.AddDays(1).ToShortDateString(), Product = "Парфюм B", Quantity = 1, Total = 1500 },
-                new SaleRecord { Date = end.ToShortDateString(), Product = "Парфюм C", Quantity = 2, Total = 3000 }
-            };
+                conn.Open();
+
+                string sql = @"
+                    SELECT p.Name AS PerfumeName, SUM(od.Quantity) AS TotalQuantity, SUM(od.Quantity * p.Price) AS TotalSum
+                    FROM Orders o
+                    INNER JOIN OrderDetails od ON o.OrderID = od.OrderID
+                    INNER JOIN Perfumes p ON od.PerfumeID = p.Id
+                    WHERE o.OrderDate >= @StartDate AND o.OrderDate <= @EndDate
+                    GROUP BY p.Name
+                    ORDER BY p.Name";
+
+                using (var cmd = new SqlCommand(sql, conn))
+                {
+                    cmd.Parameters.AddWithValue("@StartDate", start.Date);
+                    cmd.Parameters.AddWithValue("@EndDate", end.Date.AddDays(1).AddSeconds(-1));
+
+                    using (var reader = cmd.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+                            list.Add(new SaleSummary
+                            {
+                                PerfumeName = reader["PerfumeName"].ToString(),
+                                TotalQuantity = Convert.ToInt32(reader["TotalQuantity"]),
+                                TotalSum = Convert.ToDecimal(reader["TotalSum"])
+                            });
+                        }
+                    }
+                }
+            }
 
             return list;
         }
+
+        private void DrawChart(List<SaleSummary> data)
+        {
+            if (data.Count == 0)
+            {
+                MessageBox.Show("Продаж за выбранный период нет.");
+                SalesChart.Series = null;
+                SalesChart.AxisX.Clear();
+                SalesChart.AxisY.Clear();
+                return;
+            }
+
+            // Создаем серии
+            var quantitySeries = new ColumnSeries
+            {
+                Title = "Количество",
+                Values = new ChartValues<int>(data.Select(x => x.TotalQuantity))
+            };
+
+            var sumSeries = new ColumnSeries
+            {
+                Title = "Сумма",
+                Values = new ChartValues<decimal>(data.Select(x => x.TotalSum))
+            };
+
+            SalesChart.Series = new SeriesCollection { quantitySeries, sumSeries };
+
+            // Настройка оси X
+            SalesChart.AxisX.Clear();
+            SalesChart.AxisX.Add(new Axis
+            {
+                Labels = data.Select(x => x.PerfumeName).ToArray(),
+                LabelsRotation = 15
+            });
+
+            // Настройка оси Y
+            SalesChart.AxisY.Clear();
+            SalesChart.AxisY.Add(new Axis
+            {
+                Title = "Значение"
+            });
+        }
     }
 
-    public class SaleRecord
+    public class SaleSummary
     {
-        public string Date { get; set; }
-        public string Product { get; set; }
-        public int Quantity { get; set; }
-        public decimal Total { get; set; }
+        public string PerfumeName { get; set; }
+        public int TotalQuantity { get; set; }
+        public decimal TotalSum { get; set; }
     }
 }

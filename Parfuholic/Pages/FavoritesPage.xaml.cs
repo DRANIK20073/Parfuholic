@@ -11,6 +11,7 @@ namespace Parfuholic.Pages
     public partial class FavoritesPage : Page
     {
         public ObservableCollection<Perfume> Favorites { get; set; } = new ObservableCollection<Perfume>();
+        private UserMainWindow _mainWindow;
 
         public FavoritesPage()
         {
@@ -32,8 +33,13 @@ namespace Parfuholic.Pages
         {
             if (sender is Border border && border.DataContext is Perfume perfume)
             {
-                NavigationService?.Navigate(new PerfumePage(perfume.Id, perfume.Volume));
+                // Навигация через NavigationService страницы
+                if (this.NavigationService != null)
+                {
+                    this.NavigationService.Navigate(new PerfumePage(perfume.Id, perfume.Volume));
+                }
             }
         }
+
     }
 }

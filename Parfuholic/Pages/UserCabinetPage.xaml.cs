@@ -1,21 +1,60 @@
-﻿using System.Windows;
+﻿using System.Data.SqlClient;
+using System.Linq;
+using System.Windows;
 using System.Windows.Controls;
-using Parfuholic.Pages;
+using System.Windows.Input;
+using Parfuholic.Services;
 
 namespace Parfuholic.Pages
 {
     public partial class UserCabinetPage : Page
     {
-        private int currentUserId; // поле для хранения ID пользователя
+        private int currentUserId;
 
-        // Конструктор теперь принимает userId
         public UserCabinetPage(int userId)
         {
             InitializeComponent();
             currentUserId = userId;
 
-            // по умолчанию открываем избранное
-            CabinetFrame.Navigate(new FavoritesPage());
+            LoadUserName();
+
+            // по умолчанию открываем Личные данные
+            CabinetFrame.Navigate(new ProfileDataPage(currentUserId));
+        }
+
+        private void LoadUserName()
+        {
+            string firstName = null;
+            string lastName = null;
+
+            using (SqlConnection conn = new SqlConnection(Database.ConnectionString))
+            {
+                conn.Open();
+                string query = "SELECT FirstName, LastName FROM Users WHERE UserID=@UserID";
+                using (SqlCommand cmd = new SqlCommand(query, conn))
+                {
+                    cmd.Parameters.AddWithValue("@UserID", currentUserId);
+                    using (SqlDataReader reader = cmd.ExecuteReader())
+                    {
+                        if (reader.Read())
+                        {
+                            firstName = reader["FirstName"]?.ToString();
+                            lastName = reader["LastName"]?.ToString();
+                        }
+                    }
+                }
+            }
+
+            if (!string.IsNullOrWhiteSpace(firstName) && !string.IsNullOrWhiteSpace(lastName))
+            {
+                UserFirstNameText.Text = lastName;
+                UserLastNameText.Text = firstName;
+            }
+            else
+            {
+                UserFirstNameText.Text = "Любимый";
+                UserLastNameText.Text = "пользователь";
+            }
         }
 
         private void ResetButtons()
@@ -29,8 +68,6 @@ namespace Parfuholic.Pages
         {
             ResetButtons();
             ProfileBtn.Tag = "Active";
-
-            // передаем текущий ID пользователя в ProfileDataPage
             CabinetFrame.Navigate(new ProfileDataPage(currentUserId));
         }
 
@@ -50,12 +87,21 @@ namespace Parfuholic.Pages
 
         private void Logout_Click(object sender, RoutedEventArgs e)
         {
-            // получаем текущее окно
-            Window window = Window.GetWindow(this);
+            var result = MessageBox.Show(
+                "Вы уверены, что хотите выйти?",
+                "Подтверждение выхода",
+                MessageBoxButton.YesNo,
+                MessageBoxImage.Question);
 
-            if (window is UserMainWindow userWindow)
+            if (result == MessageBoxResult.Yes)
             {
-                userWindow.Logout();
+                // Получаем текущее окно
+                Window window = Window.GetWindow(this);
+                if (window is UserMainWindow userWindow)
+                {
+                    // Вызываем метод Logout в UserMainWindow
+                    userWindow.Logout();
+                }
             }
         }
     }

@@ -23,7 +23,7 @@ namespace Parfuholic.Pages
         {
             InitializeComponent();
             initialVolume = selectedVolume;
-
+            UpdateFavoriteButton();
             LoadPerfumeVariants(perfumeId);
 
             if (variants.Count > 0)
@@ -282,6 +282,18 @@ namespace Parfuholic.Pages
 
         private void UpdateFavoriteButton()
         {
+            // ❗ если пользователь не вошёл — всегда "+"
+            if (!AuthService.IsLoggedIn)
+            {
+                _isFavorite = false;
+
+                AddToFavoritesButton.Content = "+";
+                AddToFavoritesButton.Background = Brushes.Black;
+                AddToFavoritesButton.Foreground = Brushes.White;
+                return;
+            }
+
+            // пользователь вошёл
             if (_isFavorite)
             {
                 AddToFavoritesButton.Content = "-";
@@ -298,25 +310,50 @@ namespace Parfuholic.Pages
 
         private void AddToFavoritesButton_Click(object sender, RoutedEventArgs e)
         {
-            if (selectedVariant == null || !AuthService.IsLoggedIn) return;
+            // ❗ если не авторизован
+            if (!AuthService.IsLoggedIn || !AuthService.CurrentUserId.HasValue)
+            {
+                MessageBox.Show(
+                    "Чтобы добавлять товары в избранное, войдите в аккаунт.",
+                    "Требуется вход",
+                    MessageBoxButton.OK,
+                    MessageBoxImage.Warning
+                );
 
-            if (!AuthService.CurrentUserId.HasValue) return;
+                // на всякий случай обновим кнопку
+                UpdateFavoriteButton();
+                return;
+            }
+
             int userId = AuthService.CurrentUserId.Value;
 
             if (_isFavorite)
             {
                 FavoritesService.Remove(userId, selectedVariant.Id);
                 _isFavorite = false;
-                MessageBox.Show($"{selectedVariant.Name} удалён из избранного", "Избранное", MessageBoxButton.OK, MessageBoxImage.Information);
+
+                MessageBox.Show(
+                    $"{selectedVariant.Name} удалён из избранного",
+                    "Избранное",
+                    MessageBoxButton.OK,
+                    MessageBoxImage.Information
+                );
             }
             else
             {
                 FavoritesService.Add(userId, selectedVariant);
                 _isFavorite = true;
-                MessageBox.Show($"{selectedVariant.Name} добавлен в избранное", "Избранное", MessageBoxButton.OK, MessageBoxImage.Information);
+
+                MessageBox.Show(
+                    $"{selectedVariant.Name} добавлен в избранное",
+                    "Избранное",
+                    MessageBoxButton.OK,
+                    MessageBoxImage.Information
+                );
             }
 
             UpdateFavoriteButton();
         }
+
     }
 }

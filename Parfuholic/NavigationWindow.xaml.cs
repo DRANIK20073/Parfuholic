@@ -112,5 +112,33 @@ namespace Parfuholic
                           MessageBoxImage.Information);
         }
 
+        private DispatcherTimer searchTimer;
+
+        private void SearchBox_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            if (searchTimer == null)
+            {
+                searchTimer = new DispatcherTimer();
+                searchTimer.Interval = TimeSpan.FromMilliseconds(200); // задержка
+                searchTimer.Tick += SearchTimer_Tick;
+            }
+
+            searchTimer.Stop();
+            searchTimer.Tag = SearchBox.Text;
+            searchTimer.Start();
+        }
+
+        private void SearchTimer_Tick(object sender, EventArgs e)
+        {
+            searchTimer.Stop();
+
+            string query = searchTimer.Tag as string;
+
+            if (CatalogFrame.Content is CatalogPage catalogPage)
+            {
+                catalogPage.FilterPerfumes(query);
+            }
+        }
+
     }
 }

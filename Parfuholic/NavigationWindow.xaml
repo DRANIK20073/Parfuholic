@@ -86,12 +86,13 @@
 
                     <!-- TextBox -->
                     <TextBox x:Name="SearchBox"
-                         Height="44"
-                         FontSize="16"
-                         Padding="15,0"
-                         VerticalContentAlignment="Center"
-                         Background="#FFF0F0F0"
-                         BorderThickness="0"/>
+                             Height="44"
+                             FontSize="16"
+                             Padding="15,0"
+                             VerticalContentAlignment="Center"
+                             Background="#FFF0F0F0"
+                             BorderThickness="0"
+                             TextChanged="SearchBox_TextChanged"/>
 
                     <!-- Placeholder -->
                     <TextBlock Text="Поиск парфюма"

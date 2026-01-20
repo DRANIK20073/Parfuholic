@@ -5,12 +5,12 @@
       Background="White">
 
     <ScrollViewer VerticalScrollBarVisibility="Auto">
-        <StackPanel Margin="20">
+        <StackPanel Margin="20,0,20,20">
             <TextBlock Text="История заказов"
                        HorizontalAlignment="Center"
-                       FontSize="24"
+                       FontSize="28"
                        FontWeight="SemiBold"
-                       Margin="0,0,0,30"/>
+                       Margin="0,0,0,40"/>
 
             <ItemsControl x:Name="OrdersList">
                 <ItemsControl.ItemTemplate>
@@ -124,6 +124,12 @@
                                                         </ControlTemplate>
                                                     </Setter.Value>
                                                 </Setter>
+                                                <!-- Добавляем DataTrigger для скрытия кнопки, если заказ доставлен -->
+                                                <Style.Triggers>
+                                                    <DataTrigger Binding="{Binding Status}" Value="Доставлен">
+                                                        <Setter Property="Visibility" Value="Collapsed"/>
+                                                    </DataTrigger>
+                                                </Style.Triggers>
                                             </Style>
                                         </Button.Style>
                                     </Button>

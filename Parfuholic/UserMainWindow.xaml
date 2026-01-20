@@ -87,7 +87,8 @@
                              Padding="15,0"
                              VerticalContentAlignment="Center"
                              Background="#FFF0F0F0"
-                             BorderThickness="0"/>
+                             BorderThickness="0"
+                             TextChanged="SearchBox_TextChanged"/>
 
                     <TextBlock Text="Поиск парфюма"
                                FontSize="14"

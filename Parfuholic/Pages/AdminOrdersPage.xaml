@@ -31,72 +31,101 @@
 
             <!-- Колонки заказов -->
             <DataGrid.Columns>
-                <DataGridTextColumn Header="ID" 
-                                    Binding="{Binding OrderID}" 
-                                    IsReadOnly="True"
-                                    Width="50"/>
-                <DataGridTextColumn Header="Дата" 
-                                    Binding="{Binding OrderDate, StringFormat=dd.MM.yyyy HH:mm}" 
-                                    IsReadOnly="True"
-                                    Width="120"/>
-                <DataGridTextColumn Header="Сумма" 
-                                    Binding="{Binding TotalSum, StringFormat=F2}" 
-                                    IsReadOnly="True"
-                                    Width="100"/>
+                <DataGridTextColumn Header="ID" Binding="{Binding OrderID}" IsReadOnly="True" Width="50"/>
+                <DataGridTextColumn Header="Дата" Binding="{Binding OrderDate, StringFormat=dd.MM.yyyy HH:mm}" IsReadOnly="True" Width="120"/>
+                <DataGridTextColumn Header="Сумма" Binding="{Binding TotalSum, StringFormat=F2}" IsReadOnly="True" Width="100"/>
+                <DataGridTextColumn Header="Имя" Binding="{Binding FirstName}" Width="120"/>
+                <DataGridTextColumn Header="Фамилия" Binding="{Binding LastName}" Width="150"/>
+                <DataGridTextColumn Header="Город" Binding="{Binding City}" Width="150"/>
+                <DataGridTextColumn Header="Адрес" Binding="{Binding Address}" Width="250"/>
+
                 <DataGridTemplateColumn Header="Статус" Width="180">
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
                             <ComboBox SelectedItem="{Binding Status, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                                      Loaded="StatusComboBox_Loaded"
-                                      FontSize="14"
-                                      Height="30"/>
+                          Loaded="StatusComboBox_Loaded"
+                          FontSize="14"
+                          Height="30"/>
                         </DataTemplate>
                     </DataGridTemplateColumn.CellTemplate>
                 </DataGridTemplateColumn>
             </DataGrid.Columns>
 
+
             <!-- Детали заказа (товары) -->
             <DataGrid.RowDetailsTemplate>
                 <DataTemplate>
                     <Border Background="#FFF5F5F5" 
-                            Padding="20,10"
-                            Margin="10,5">
-                        <Grid>
-                            <Grid.RowDefinitions>
-                                <RowDefinition Height="Auto"/>
-                                <RowDefinition Height="*"/>
-                            </Grid.RowDefinitions>
+                Padding="10"
+                Margin="10,5">
+                        <ItemsControl ItemsSource="{Binding Items}">
+                            <ItemsControl.ItemTemplate>
+                                <DataTemplate>
+                                    <Grid Margin="0,5">
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="160"/>
+                                            <!-- Фото -->
+                                            <ColumnDefinition Width="150"/>
+                                            <!-- Бренд -->
+                                            <ColumnDefinition Width="200"/>
+                                            <!-- Название -->
+                                            <ColumnDefinition Width="80"/>
+                                            <!-- Цена -->
+                                            <ColumnDefinition Width="70"/>
+                                            <!-- Скидка -->
+                                            <ColumnDefinition Width="90"/>
+                                            <!-- Количество -->
+                                            <ColumnDefinition Width="80"/>
+                                            <!-- Итого -->
+                                        </Grid.ColumnDefinitions>
 
-                            <TextBlock Text="Товары в заказе:" 
-                                       FontWeight="Bold" 
-                                       FontSize="16"
-                                       Margin="0,0,0,10"/>
+                                        <!-- Фото -->
+                                        <Border Width="160"
+                                                Height="160"
+                                                Background="#FFF0F0F0"
+                                                Padding="0"
+                                                HorizontalAlignment="Center"
+                                                VerticalAlignment="Center">
+                                            <Image Source="{Binding Perfume.Image}"
+                                           Stretch="UniformToFill"
+                                           HorizontalAlignment="Center"
+                                           VerticalAlignment="Center"
+                                           RenderOptions.BitmapScalingMode="HighQuality"/>
+                                        </Border>
 
-                            <DataGrid Grid.Row="1"
-                                      ItemsSource="{Binding Items}" 
-                                      AutoGenerateColumns="False" 
-                                      CanUserAddRows="False"
-                                      IsReadOnly="True"
-                                      FontSize="14">
-                                <DataGrid.Columns>
-                                    <DataGridTextColumn Header="Товар" 
-                                                        Binding="{Binding Perfume.Name}" 
-                                                        Width="200"/>
-                                    <DataGridTextColumn Header="Цена" 
-                                                        Binding="{Binding Perfume.Price, StringFormat=F2}" 
-                                                        Width="80"/>
-                                    <DataGridTextColumn Header="Скидка" 
-                                                        Binding="{Binding Perfume.DiscountPercent, StringFormat='{}{0}%'}" 
-                                                        Width="70"/>
-                                    <DataGridTextColumn Header="Количество" 
-                                                        Binding="{Binding Quantity}" 
-                                                        Width="90"/>
-                                    <DataGridTextColumn Header="Итого" 
-                                                        Binding="{Binding TotalPrice, StringFormat=F2}" 
-                                                        Width="80"/>
-                                </DataGrid.Columns>
-                            </DataGrid>
-                        </Grid>
+                                        <!-- Бренд -->
+                                        <TextBlock Grid.Column="1"
+                                       Text="{Binding Perfume.Brand}" 
+                                       VerticalAlignment="Center"/>
+
+                                        <!-- Название -->
+                                        <TextBlock Grid.Column="2"
+                                       Text="{Binding Perfume.Name}" 
+                                       VerticalAlignment="Center"/>
+
+                                        <!-- Цена -->
+                                        <TextBlock Grid.Column="3"
+                                       Text="{Binding Perfume.Price, StringFormat=F2}" 
+                                       VerticalAlignment="Center"/>
+
+                                        <!-- Скидка -->
+                                        <TextBlock Grid.Column="4"
+                                       Text="{Binding Perfume.DiscountPercent, StringFormat='{}{0}%'}" 
+                                       VerticalAlignment="Center"/>
+
+                                        <!-- Количество -->
+                                        <TextBlock Grid.Column="5"
+                                       Text="{Binding Quantity}" 
+                                       VerticalAlignment="Center"/>
+
+                                        <!-- Итого -->
+                                        <TextBlock Grid.Column="6"
+                                       Text="{Binding TotalPrice, StringFormat=F2}" 
+                                       VerticalAlignment="Center"/>
+                                    </Grid>
+                                </DataTemplate>
+                            </ItemsControl.ItemTemplate>
+                        </ItemsControl>
                     </Border>
                 </DataTemplate>
             </DataGrid.RowDetailsTemplate>

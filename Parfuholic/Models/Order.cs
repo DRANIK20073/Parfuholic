@@ -9,6 +9,10 @@ namespace Parfuholic.Models
         public int OrderID { get; set; }
         public DateTime OrderDate { get; set; }
         public decimal TotalSum { get; set; }
+        public string FirstName { get; set; }
+        public string LastName { get; set; }
+        public string City { get; set; }
+        public string Address { get; set; }
 
         private string _status;
         public string Status

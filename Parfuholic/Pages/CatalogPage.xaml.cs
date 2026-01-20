@@ -1,9 +1,10 @@
 ﻿using Parfuholic.Models;
 using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Data.SqlClient;
-using System.Windows;
+using System.Linq;
 using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Threading;
@@ -12,14 +13,17 @@ namespace Parfuholic.Pages
 {
     public partial class CatalogPage : Page, INotifyPropertyChanged
     {
+        // Коллекция для отображения в ItemsControl
         public ObservableCollection<Perfume> Perfumes { get; set; } = new ObservableCollection<Perfume>();
+
+        // Полный список для фильтрации при поиске
+        private List<Perfume> AllPerfumes { get; set; } = new List<Perfume>();
 
         private readonly string connectionString =
             @"Data Source=.\SQLEXPRESS;Initial Catalog=ParfuholicDB;Integrated Security=True";
 
         private string _category;
         private bool _isNavigating = false;
-
 
         private bool _hasPerfumes;
         public bool HasPerfumes
@@ -50,9 +54,11 @@ namespace Parfuholic.Pages
         private void OnPropertyChanged(string propertyName) =>
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
 
+        // Загрузка парфюмов из базы данных
         private void LoadPerfumes(string category)
         {
             Perfumes.Clear();
+            AllPerfumes.Clear();
 
             using (var conn = new SqlConnection(connectionString))
             {
@@ -81,7 +87,7 @@ namespace Parfuholic.Pages
                     {
                         while (reader.Read())
                         {
-                            Perfumes.Add(new Perfume
+                            Perfume p = new Perfume
                             {
                                 Id = reader.GetInt32(0),
                                 Name = reader["Name"] as string,
@@ -97,7 +103,10 @@ namespace Parfuholic.Pages
                                 ImageData = reader["ImageData"] == DBNull.Value ? null : (byte[])reader["ImageData"],
                                 IsNew = Convert.ToBoolean(reader["IsNew"]),
                                 DiscountPercent = reader["DiscountPercent"] != DBNull.Value ? Convert.ToInt32(reader["DiscountPercent"]) : 0
-                            });
+                            };
+
+                            Perfumes.Add(p);
+                            AllPerfumes.Add(p); // сохраняем полный список
                         }
                     }
                 }
@@ -106,6 +115,7 @@ namespace Parfuholic.Pages
             HasPerfumes = Perfumes.Count > 0;
         }
 
+        // Обработчик клика на карточку парфюма
         private void PerfumeCard_Click(object sender, MouseButtonEventArgs e)
         {
             if (_isNavigating) return;
@@ -113,7 +123,6 @@ namespace Parfuholic.Pages
 
             if (sender is Border border && border.DataContext is Perfume perfume)
             {
-                // Передаем состояние авторизации
                 NavigationService?.Navigate(new PerfumePage(perfume.Id, perfume.Volume));
                 NavigationService?.RemoveBackEntry();
             }
@@ -121,5 +130,25 @@ namespace Parfuholic.Pages
             Dispatcher.BeginInvoke(new Action(() => _isNavigating = false),
                                    DispatcherPriority.Background);
         }
+
+        public void FilterPerfumes(string query)
+        {
+            query = query?.Trim().ToLower() ?? "";
+
+            Perfumes.Clear();
+
+            var filtered = string.IsNullOrEmpty(query)
+                ? AllPerfumes
+                : AllPerfumes.Where(p =>
+                    (p.Name != null && p.Name.ToLower().Contains(query)) ||
+                    (p.Brand != null && p.Brand.ToLower().Contains(query))
+                  ).ToList();
+
+            foreach (var p in filtered)
+                Perfumes.Add(p);
+
+            HasPerfumes = Perfumes.Count > 0;
+        }
+        
     }
 }

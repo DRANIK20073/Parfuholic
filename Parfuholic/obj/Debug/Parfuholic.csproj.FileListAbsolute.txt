@@ -80,3 +80,10 @@ D:\Others\Programming\Visual studio 2022\Parfuholic\Parfuholic\obj\Debug\Pages\C
 D:\Others\Programming\Visual studio 2022\Parfuholic\Parfuholic\obj\Debug\Pages\CartPage.g.cs
 D:\Others\Programming\Visual studio 2022\Parfuholic\Parfuholic\obj\Debug\Pages\AdminOrdersPage.baml
 D:\Others\Programming\Visual studio 2022\Parfuholic\Parfuholic\obj\Debug\Pages\AdminOrdersPage.g.cs
+D:\Others\Programming\Visual studio 2022\Parfuholic\Parfuholic\bin\Debug\LiveCharts.dll
+D:\Others\Programming\Visual studio 2022\Parfuholic\Parfuholic\bin\Debug\LiveCharts.Wpf.dll
+D:\Others\Programming\Visual studio 2022\Parfuholic\Parfuholic\bin\Debug\LiveCharts.pdb
+D:\Others\Programming\Visual studio 2022\Parfuholic\Parfuholic\bin\Debug\LiveCharts.xml
+D:\Others\Programming\Visual studio 2022\Parfuholic\Parfuholic\bin\Debug\LiveCharts.Wpf.pdb
+D:\Others\Programming\Visual studio 2022\Parfuholic\Parfuholic\bin\Debug\LiveCharts.Wpf.xml
+D:\Others\Programming\Visual studio 2022\Parfuholic\Parfuholic\obj\Debug\Parfuholic.csproj.Up2Date
